@@ -1,0 +1,5 @@
+bookdown::gitbook:
+  split_by: section
+  split_bib: true
+bookdown::pdf_book: default
+

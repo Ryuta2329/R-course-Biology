@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1.3 Asignación de variables. | R-Biologos.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1.3 Asignación de variables. | R-Biologos.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1.3 Asignación de variables. | R-Biologos.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="usando-la-consola-operaciones-matemáticas-en-r..html"/>
+<link rel="next" href="tipos-de-datos-y-su-manejo..html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="1" data-path="empezando-comandos-básicos..html"><a href="empezando-comandos-básicos..html"><i class="fa fa-check"></i><b>1</b> Empezando: Comandos Básicos.</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="el-entorno-de-trabajo..html"><a href="el-entorno-de-trabajo..html"><i class="fa fa-check"></i><b>1.1</b> El entorno de trabajo.</a></li>
+<li class="chapter" data-level="1.2" data-path="usando-la-consola-operaciones-matemáticas-en-r..html"><a href="usando-la-consola-operaciones-matemáticas-en-r..html"><i class="fa fa-check"></i><b>1.2</b> Usando la consola: operaciones matemáticas en R.</a></li>
+<li class="chapter" data-level="1.3" data-path="asignación-de-variables..html"><a href="asignación-de-variables..html"><i class="fa fa-check"></i><b>1.3</b> Asignación de variables.</a></li>
+<li class="chapter" data-level="1.4" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html"><i class="fa fa-check"></i><b>1.4</b> Tipos de datos y su manejo.</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#datos-numéricos."><i class="fa fa-check"></i><b>1.4.1</b> Datos numéricos.</a></li>
+<li class="chapter" data-level="1.4.2" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#caracteres."><i class="fa fa-check"></i><b>1.4.2</b> Caracteres.</a></li>
+<li class="chapter" data-level="1.4.3" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#valores-lógicos."><i class="fa fa-check"></i><b>1.4.3</b> Valores lógicos.</a></li>
+<li class="chapter" data-level="1.4.4" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#fechas-y-tiempo."><i class="fa fa-check"></i><b>1.4.4</b> Fechas y tiempo.</a></li>
+<li class="chapter" data-level="1.4.5" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#otros-valores-especiales."><i class="fa fa-check"></i><b>1.4.5</b> Otros valores especiales.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="organizandote-scripts..html"><a href="organizandote-scripts..html"><i class="fa fa-check"></i><b>1.5</b> Organizandote: <em>Scripts</em>.</a></li>
+<li class="chapter" data-level="1.6" data-path="necesitas-ayuda-r-te-ayuda.html"><a href="necesitas-ayuda-r-te-ayuda.html"><i class="fa fa-check"></i><b>1.6</b> Necesitas ayuda: R te ayuda!</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="comunicando-resultados-y-tomando-notas..html"><a href="comunicando-resultados-y-tomando-notas..html"><i class="fa fa-check"></i><b>2</b> Comunicando Resultados y Tomando notas.</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="instalando-paquetes-en-r..html"><a href="instalando-paquetes-en-r..html"><i class="fa fa-check"></i><b>2.1</b> Instalando paquetes en R.</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="instalando-paquetes-en-r..html"><a href="instalando-paquetes-en-r..html#representación-de-objetos-y-el-uso-de-comillas."><i class="fa fa-check"></i><b>2.1.1</b> Representación de objetos y el uso de comillas.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="investigación-reproducible-r-markdown..html"><a href="investigación-reproducible-r-markdown..html"><i class="fa fa-check"></i><b>2.2</b> Investigación reproducible: R Markdown!.</a></li>
+<li class="chapter" data-level="2.3" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html"><i class="fa fa-check"></i><b>2.3</b> R Markdown: Estructura y Ejecución.</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#instalando-r-markdown."><i class="fa fa-check"></i><b>2.3.1</b> Instalando R Markdown.</a></li>
+<li class="chapter" data-level="2.3.2" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#anatomía-de-un-documento-r-markdown."><i class="fa fa-check"></i><b>2.3.2</b> Anatomía de un documento <em>R Markdown</em>.</a></li>
+<li class="chapter" data-level="2.3.3" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#imágenes-y-tablas."><i class="fa fa-check"></i><b>2.3.3</b> Imágenes y tablas.</a></li>
+<li class="chapter" data-level="2.3.4" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#bibliografía-y-referencias."><i class="fa fa-check"></i><b>2.3.4</b> Bibliografía y referencias.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="notas-finales-sobre-la-investigacion-reproducible..html"><a href="notas-finales-sobre-la-investigacion-reproducible..html"><i class="fa fa-check"></i><b>2.4</b> Notas finales sobre la investigacion reproducible.</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="estructuras-de-datos..html"><a href="estructuras-de-datos..html"><i class="fa fa-check"></i><b>3</b> Estructuras de Datos.</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="vectores.html"><a href="vectores.html"><i class="fa fa-check"></i><b>3.1</b> Vectores</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="vectores.html"><a href="vectores.html#operaciones-sobre-vectores."><i class="fa fa-check"></i><b>3.1.1</b> Operaciones sobre vectores.</a></li>
+<li class="chapter" data-level="3.1.2" data-path="vectores.html"><a href="vectores.html#vectorización-y-funciones."><i class="fa fa-check"></i><b>3.1.2</b> Vectorización y funciones.</a></li>
+<li class="chapter" data-level="3.1.3" data-path="vectores.html"><a href="vectores.html#indexado-usando-expresiones-lógicas."><i class="fa fa-check"></i><b>3.1.3</b> Indexado usando expresiones lógicas.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="marices-y-arreglos..html"><a href="marices-y-arreglos..html"><i class="fa fa-check"></i><b>3.2</b> Marices y arreglos.</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="marices-y-arreglos..html"><a href="marices-y-arreglos..html#matrices."><i class="fa fa-check"></i><b>3.2.1</b> Matrices.</a></li>
+<li class="chapter" data-level="3.2.2" data-path="marices-y-arreglos..html"><a href="marices-y-arreglos..html#arreglos."><i class="fa fa-check"></i><b>3.2.2</b> Arreglos.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="factores.html"><a href="factores.html"><i class="fa fa-check"></i><b>3.3</b> Factores</a></li>
+<li class="chapter" data-level="3.4" data-path="tablas-de-datos-data-frames..html"><a href="tablas-de-datos-data-frames..html"><i class="fa fa-check"></i><b>3.4</b> Tablas de Datos (<em>data frames</em>).</a></li>
+<li class="chapter" data-level="3.5" data-path="listas..html"><a href="listas..html"><i class="fa fa-check"></i><b>3.5</b> Listas.</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="asignación-de-variables." class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Asignación de variables.<a href="asignación-de-variables..html#asignación-de-variables." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Otra operación común en las matemáticas es asignarle a una variable un valor. En R, esto también puede realizarse, de forma que se pueda almacenar en memoria un número o una palabra, o incluso el resultado de operaciones matemáticas. Para llevar a cabo la asignación se utiliza el operador de asignación (Duh!), <code>&lt;-</code>. Por ejemplo, si quieres asignarle el resultado de obtener la raíz cuadrada de 32 a la variable <code>x</code>, se escribe:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="asignación-de-variables..html#cb4-1" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">32</span>)</span></code></pre></div>
+<p>A este proceso de asignarle un valor a una variable se le denomina declaración o instanciación de variables: en este caso, se ha declarado la variable <code>x</code> asignándole el valor de <code>sqrt(32)</code>. Una vez declarada, se puede ver el valor escribiendo el nombre de la variable en la consola y seguido presionando <em>Enter</em>. A esto se le llama <em>llamar</em> a la variable (<em>call</em> en ingles). Hay otras dos formas de llamar a una variable: usando la función <code>print</code>, pasando la variable como argumento (en el ejemplo anterior, si quisieras llamar a <code>x</code> podrías hacerlo con el comando <code>print(x)</code>). De hecho, cuando llamas una variable usando solo su nombre en la consola, lo que esta sucediendo es que se llama a la función <code>print</code> de manera implícita. La segunda forma es haciendo uso de la función <code>cat</code>, la cual permite imprimir en pantalla lo que se encuentra almacenado en una variable (o el resultado de una llamada a una función) sin que se muestren las comillas. Esto permite una forma más estilizada de presentar resultado.</p>
+<p><strong>Buenas prácticas de programación.</strong> En una nota aparte, en la web vas a encontrar mucho código de otros programadores en el cual utilizan el operador <code>=</code> como operador de asignación en lugar de <code>&lt;-</code>. Aunque esto no es errado (la única diferencia entre <code>=</code> y <code>&lt;-</code> es que el último tiene mayor precedencia que el primero), la convención es usar <code>&lt;-</code> como operador de asignación, y reservar el operador <code>=</code> como un símbolo de sintaxis que señala el paso de un argumento en la llamada a una función<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</p>
+<p>Ahora, hay algunas reglas en el uso de nombres de variables: los nombres de las variables pueden contener solamente letras, números y/o punto (.) o un piso (<code>_</code>), siempre y cuando no empiecen con una letra o con el punto pero nunca pueden empezar con un punto seguido de un número (parece una regla bastante larga). Por ejemplo, variables como <code>x</code>, <code>my.variable</code>, <code>my_variable_2</code> o <code>.dot</code> son nombres de variables aceptables; pero <code>2_x</code>, <code>_wrong</code>, o <code>3error</code> no estan permitidas.</p>
+<p><strong>Buenas prácticas de programación.</strong> Una nota importante sobre el nombre de las variables es que estos deben de significar algo, en el sentido que debe ser explicativo. Por ejemplo, si asignas el resultado de sumar <code>5 + 8</code> a una variable, un buen nombre para la variable sería <code>suma</code>. Si se trata de una operación más complicada, de repente <code>resultado</code> sea un buen nombre. No le asignes nombres aleatorios a las variables, eso solo hará que te pierdas y hará más difícil de leer el código, y aún más difícil el tener que mantenerlo y modificarlo (así que nada de llamar variables como tu <em>crush</em>. A él/ella no le importas y a nosotros tampoco).</p>
+<p>Otro punto con respecto a esto, esta en el estilo o convenciones. Los programadores utilizan distintos estilos para nombrar las variables y puedes adherirte a alguno de ellos. Lo importante es que te mantengas consistente. Algunos estilos o convenciones son los siguientes:</p>
+<pre><code>    namingconvention        
+    naming.convention       
+    naming_convention   
+    namingConvention   
+    NamingConvention  </code></pre>
+<p>Por lo general, uno al principio prueba varios estilos y termina adhiriéndose a uno que nos hace sentir bien al leerlo y escribirlo. Asi que haz varias pruebas y elige el que te haga sentir más cómoda.</p>
+<p>Finalmente, en R hay lo que se conoce como palabras reservadas. Estas son caracteres o combinación de caracteres especiales que R utiliza para definir ciertos componentes del lenguaje. Por ejemplo, algunas palabras reservadas son <code>NA</code> para valores faltantes, o <code>TRUE</code> y <code>FALSE</code> para los valores lógicos. Como están reservadas para usos específicos, estas palabras no pueden ser utilizadas como nombres de variables (p. ej. la declaración <code>NA &lt;- 25</code> resultará en un error. <code>NA</code> es un carácter reservado).</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="5">
+<li id="fn5"><p>Wow! Aun no hablamos de funciones y puede que no sepas que son los argumentos, pero ya pronto lo sabrás. Por ahora solo tómame la palabra y usa <code>&lt;-</code> cada que asignes valores a variables<a href="asignación-de-variables..html#fnref5" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="usando-la-consola-operaciones-matemáticas-en-r..html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tipos-de-datos-y-su-manejo..html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

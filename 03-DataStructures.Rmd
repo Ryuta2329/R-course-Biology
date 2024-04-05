@@ -1,0 +1,631 @@
+# Estructuras de Datos.
+
+## Vectores
+
+Los vectores son objetos que contienen varios elementos relacionados (del mismo tipo o clase). Estos elementos estan indexados: esto es, cada elemento tiene asociado un numero que determina la posicion del elemento en el vector, comenzando desde el $1$. Las variables creadas asignando un solo valor a ellas son vectores de longitud uno. A estos se les llama atómicos.
+
+Los vectores se pueden crear usando la función ```c()```, como en ```c("AC/DC", "Led Zeppelin", Guns & Roses")```. Se pueden añadir tantos elementos como se quiera. Para acceder a los elementos de un vector, se utilizan los operadores de indexado `[` y `]`, encerrando el número que identifica la posición del elemento deseado. Por ejemplo:
+
+```{r , eval = F}
+	bandas <- c("AC/DC", "Led Zeppelin", "Guns & Roses", "Blink 182")
+	bandas[4] # Devuelve "Blink 182"
+```
+
+Empezando a contar desde el 1, el elemento `"AC/DC"`, el elemento 4 sería el elemento `"Blink 182"`. 
+
+Es posible saber la longitud de cualquier vector usando la función `length`. La longitud es el número total de elementos contenidos en el vector. Por ejemplo, el resultado de usar `length(bandas)` arroja $4$.
+
+En la práctica, es usual crear vectores que sean secuencias de números o vectores de elementos que se repiten. 
+En por ello que existen funciones especiales que permiten crear este tipo de vectores. 
+Si se quiere crear una secuencia de números se puede usar `seq` de la siguiente forma:
+
+```{r , eval = F}
+	my_seq <- seq(0, 100) # Primeros 100 numeros naturales 
+	pares <- seq(0, 100, by=2) # Numeros pares menores que 100
+```
+
+En las declaraciones anteriores, se especifica con el primer y segundo argumento el comienzo y final de la secuencia, respectivamente. El tercer argumento es opcional: si se omite, cada elemento de la secuencia es mayor al anterior en solo una unidad (el caso de `my_seq`), de lo contario, cada elemento es el anterior + el numero de unidades que dice `by` (en el caso de `pares`, cada elemento es dos veces el anterior).
+También es posible crear secuencias en la que los elementos esten en orden decreciente. Por ejemplo, `seq(-1, -100, by=-2)` genera una secuencia de enteros impares negativos mayores que $-100$, comenzando con $-1$, $-3$, $-5$, $\ldots$. 
+
+La creación de secuencias de enteros uno a uno (`by=1` o `by=-1`) es tan usual, que existe un atajo para crearlos, usando la notación `a:b`. Por ejemplo, es posible crear el vector `my_seq` del ejemplo anterior como `0:100`, o uno en sentido descendente como `10:-10`. 
+
+Para crear vectores de repeticiones se usa la función ```rep``` de la siguiente forma:
+
+```{r , eval = F}
+	my_rep <- rep("Oh!", 3) # "Oh!" "Oh!" "Oh!"
+	my_vec_rep <- rep(c("Wham", "Bam!"), 2) # "Wham" "Bam!" "Wham" "Bam!"
+```
+
+El segundo argumento dice el número de veces que se repite el elemento de entrada. 
+Como se ve en la segunda linea, si el argumento a repetir es un vector, todo el vector se repite el numero de veces que dice el segundo argumento. 
+Se ve que que el resultado es el vector original, seguido del mismo vector, seguido del mismo vector, ..., el numero de veces que dice el segundo argumento. 
+Hay otra forma de hacer repeticiones, usando un tercer argumento, `each`, de la siguiente forma:
+
+```{r , eval = F}
+	my_vec_rep <- rep(c("Wham", "Bam!"), each=2) # "Wham" "Wham" "Bam!" "Bam!"
+```
+
+En este caso, el argumento `each` dice el numero de veces que cada elemento del vector de entrada se repite.
+
+### Operaciones sobre vectores.
+
+Las operaciones especificas para un tipo de dato particular, se pueden realizar sobre vectores con elementos de ese tipo de dato. 
+Por ejemplo, las operaciones ariméticas también son válidas sobre vectores, solo se debe conocer la forma como esas operaciones se llevan a cabo. 
+Para empezar sencillo, digamos que queremos crear un vector de los primeros 10 múltiplos de 2. Como vimos antes, se podría hacer con una secuencia, pero aqui estamos interesados en ver como funcionan las operaqciones con vectores. 
+Al realizar operaciones de un vector con un escalar (un atómico), el resultado es un vector en el que cada elemento en la $i$-esima posición es el elemento $i$ del vector inicial operado con el escalar (atómico). 
+Para dejar esto más clar, el siguiente ejemplo muestra la multiplicación de un escalar por un vector:
+
+```{r , eval = F}
+	my_vector <- 1:10
+	my_vector * 2
+```
+
+Como se puede ver, el resultado de `c(1, 2, 3, ..., 10) * 2` es `c(1 * 2, 2 * 2, ..., 10 * 2)`, esto es, cada elemento de `my_vector` se multuplica pór `2`. 
+De manera general, esto ocurre siempre de esta forma. Las operaciones sobre vectores ocurren elemento a elemento. 
+Un caso más complicado surge cuadno queremos realizar operaciones sobre dos vectores de igual longitud: digamos sumar los primeros 10 numeros pares a los primeros 10 numeros impares.
+
+```{r , eval = F}
+	first_10_even <- 1:10 * 2
+	first_10_odd <-first_10_even - 1
+	first_10_even + first_10_odd
+```
+
+Noten el uso de la aritmética de vectores por un escalar para crear los primeros dos vectores. 
+El resultado final muestra que la aritmetica de vectores se hace tomando el elemento en la posición $i$ del primer vector, y opera sobre el elemento en la misma posicion del segundo vector. 
+De forma que al realizar `c(2, 4, 6, ..., 20) + c(1, 3, 5, ..., 19)`, el resultado es `c(2 + 1, 4 + 3, ..., 20 + 19)`. 
+
+Ahora, ¿qué sucedería si los vectores fuera de longitud distinta?. Por ejemplo, el siguinte ejemplo:
+
+```{r , eval = F}
+	1 : 10 * c(10, 100)
+```
+
+muestra que el resultado sigue usando el mismo procedimiento descrito antes, solo que ahora, al llegar al ultimo elemento del vector de menor longitud, se vuelve a usar el primer elemento de ese vector para continuar con la operación. 
+En el caso anterior, la operacion se interpreta como `c(1 * 10, 2 * 100, 3 * 10, 4 * 100, 5 * 10, ..., 9 * 10, 10 * 100)`. 
+A este proceso se le llama _reciclado_. 
+
+Cuando se trata de hacer operaciones con vectores de longitud distinta, estas siempre son posibles hacerlas. Sin embargo, si la longitud de un vector no es multiplo de la longitud del otro vector, el proceso de reciclado ocurre de forma incompleta y R lanza una advertencia para que tengas cuidado con lo que esperas.
+Por ejemplo, si el caso anterior se modifica un poco:
+
+```{r , eval = F}
+	1 : 11 * c(10, 100)
+```
+
+Esto se interpreta igual que antes, solo que el ultimo elemento es `11 * 1`, el ultimo elemento del vector por el primero del segundo. 
+La advertencia surge debido a que, durante el reciclado, R trata de usar multiplicar los elementos del vector de menor longitud tantas veces como es posible.
+Pero como el primer vector no tiene suficientes elementos para lograr esto, se lanza la advertencia sobre la diferenciaq de longitudes. 
+
+Ahora, de igual forma que las operaciones aritméticas son posibles con vectores. las operaciones lógicas también lo son, permitiendo obtener vectores lógicos: vectores cuyos elementos son todos `TRUE` o `FALSE`. 
+Por ejemplo:
+
+```{r , eval = F}
+	1:10 >= 5 
+```
+
+Al igual que con los vectores de números, las operaciones se hacen elemento a elemento, y en el caso de longitudes distintas, se recicla. 
+Y, al igual que con los vectores numéricos, es posible llevar a cabo operaciones lógicas con vectores de caracteres. Por ejemplo:
+
+```{r , eval = F}
+	c("Eliana", "Marcelo", "Darvin", "Jesus", "Arianna") != "Marcelo" 
+```
+
+Una operación lógica que resulta bastante conveniente, es la que se realiza usando el operador `%in%`. 
+Este operador lo que hace es chequear si el objeto u objetos (contenidos en un vector) se encuentran representado en los elementos de un vector de posibilidades.
+Por ejemplo:
+
+```{r , eval = F}
+	bands <- c("AC/DC", "Led Zeppelin", "Guns & Roses", "Blink 182", "Neck Deep", "State Champs", "Green Day", "The Offsprings")
+	bands %in% c("AC/DC", "Led Zeppelin", "Guns & Roses", "The Offsprings")
+```
+
+El resultado es un vector con un `TRUE` en las posiciones en las que se encuentra un elemento que coincide con alguno de los elementos en el vector a la derecha del operador `%in%`.
+
+### Vectorización y funciones.
+
+La razón por la que es posible realizar operaciones de forma tan sencilla en R, es debido a que el lenguaje esta vectorizado. 
+Esto quiere decir, que las operaciones ocurren en todos los elemento de un vector sin la necesidad de iterar^[La iteración se hace con unas estructuras de control llamados _loops_ (bucle), como lo son los ciclos `for` o `while`. En R, estas estructuras estan disponibles, pero la vectorización no las hace indispensables en muchas aplicaciones.] por cada uno de los elementos, uno a la vez.
+
+La vectorización es también lo que hace posible el uso de funciones sobre vectores.
+Por ejemplo, si se tiene un vector con los primeros 100 enteros, y se quiere saber la raíz cuadrada de cada uno de ellos, solo es necesario aplicar la función al vector: `sqrt(1:100)`. 
+Esto se interpreta como: `c(sqrt(1), sqrt(2), ..., sqrt(100))`. 
+De igual forma, todas las funciones matemáticas en R estan vectorizadas para operar sobre todos los elementos a la vez. 
+
+Muchas funciones en R estan vectorizadas. Es lo que lo hace tan conveniente. 
+Y muchas funciones que realizan tareas usualmente encontradas en análisis de datos y otras aplicaciones, estan disponibles en R para facilitar el trabajo y no tener que reinventar la rueda cada vez. 
+
+Estas funciones operan sobre vectores, devolviendo un atómico como resultado. Por ejemplo, varias funciones usuales que operan sobre vectores son las siguientes:
+
+```{r, eval=FALSE}
+min(-10:10) # minimo de un numero
+max(-10:10) # Maximo de un numero
+prod(1:10) # Factorial
+sum(1:10) # Sumatoria
+```
+
+La ultima función es particularmente útil cuando quieres contar el numero de elementos que cumplen una condición. 
+Por ejemplo, digamos que queremos saber cual es el número de elementos mayores a $50$ en una muestra de $100$ elementos tomados al azar de un vector de numeros enteros en el intervalo $[1, 100]$. 
+El código para realizar esta tarea es el siguiente:
+
+```{r, eval = FALSE}
+my_sample <- sample(1:100, 100, replace=TRUE)
+sum(my_sample > 50)
+```
+
+La función ```sample``` recibe un vector y un numero que dice cuantos elementos se tomaran de muestra del vector. 
+El argumento ```replace``` dice que una vez que se toma un elemento, este se anota y se devuelve de forma que este disponible para poder tomarlo una vez más^[A este proceso se le llama tomar una mustra con reemplazo en la teoría de muestras.] 
+Luego, la condición dentro de la función `sum` genera un vector lógico con `TRUE` donde haya elementos mayores a $50$. 
+Como los vectores lógicos se interpretan como $1$ (`TRUE`) y $0$ (`FALSE`) internamente; cuando se aplica `sum`, esta se encarga de sumar solo 1's y 0's. 
+De esta forma, es fácil realizar conteos en R.
+
+Otras funciones útiles son `any` y `all`, las cuales devuelven un valor lógico. 
+`any` devuelve `TRUE` si un vector lógico contiene al menos un `TRUE`, de otra forma regresa `FALSE`. 
+`all` devuelve `TRUE` si todos los elementos de un vector son `TRUE`, de otra froma regresa `FALSE`. 
+Estas funciones son muy útiles en combianción con operadores lógicos:
+
+
+```{r, eval = FALSE}
+my_sample <- c(1, 15, 8, 2, 14, 7, 2, 14, 29)
+any(sum(my_sample %% 7) > 0) # TRUE ya que hay multiplos de cero en my_sample
+all(sum(my_sample %% 2) > 0) # FALSE porque no todos los elementos de my_sample son pares
+```
+
+La función `sample` es como otras funciones en R que reciben un vector (y posiblemente otros argumentos) y devuelven más vectores como resultado. 
+Por ejemplo, podemos tener un vector de elementos desordenados, y puede que queramos ordenarlo de forma creciente:
+
+```{r, eval = FALSE}
+cat("Antes de ordenar:\n",
+	my_sample,
+	"\nDespues de ordenar:\n",
+	sort(my_sample))
+```
+
+La función `cat` se encarga de imprimir objetos en R, combinándolos primero. 
+
+**Funciones estadísticas**
+
+Existen un conjunto de cálculos matemáticos en el análisis de datos que son tan frecuentes, que ya están programadas por omisión dentro de R. 
+Estas funciones son `mean`, `var`, `sd`, `median`, `range`, `quantile` y `cor`, las cuales reciben un vector numérico, y devuelven la media, varianza, desviación estándar, mediana, rango, y los cuantiles, respectivamente.
+El código siguiente muestra el calculo de las medidas de tendencia central y dispersión para un vector.
+
+```{r, eval=FALSE}
+c(Media=mean(my_sample), Mediana=median(my_sample), Var=var(my_sample), Std.Error=sd(my_sample))
+```
+
+La función `range` devuelve un vector con dos elementos, los valores con magnitud máxima y minima 
+
+```{r, eval=FALSE}
+range(my_sample)
+```
+
+La funcion `quantile` devuelve los cuartiles calculados a partir de la muestra. Noten que el $Q_{50\%}$ es la mediana, y $Q_{0\%}$ y $Q_{100\%}$ son el valor mínimo y máximo devueltos por `range`. 
+
+```{r, eval=FALSE}
+quantile(my_sample)
+```
+
+Ahora, podemos ver en mas detalle la función `sample`. Esta es muy útil para realizar simulaciones. Pero también lo es en el análisis de datos, ya que permite seleccionar de forma aleatoria un conjunto de datos que puede servir como un conjunto de datos independiente del ajuste de un modelo por ejemplo. 
+
+Esta funcion permite tomar una muestra aleatoria a partir de un vector que es dado como argumento a la función. 
+El tamaño de la muestra a tomar se puede especificar como el segundo argumento, `size`, el cual por omisión es igual a la longitud del vector. 
+El argumento `replace` es un valor lógico que indica si el muestreo se hace con reemplazo o sin reemplazo, y el ultimo argumento, `prob`, es un vector de probabilidades que permite especificar la frecuencia que se espera tenga un elemento en el vector. Por omisión, esta es igual para todos los elementos. 
+
+**Datos Faltantes (_Missing_).**
+
+Como ya vimos anteriormente, `NA` es un objeto especial en R que significa que hay un dato faltante. Vimos que es posible comprobar si un objeto es un dato faltante usando la función `is.na()`, la cual devuelve `TRUE` si es `NA`, y `FALSE` de otra forma. 
+Los datos faltantes son comunes en el análisis de datos y deben tratarse de manera adecuada durante el proceso previo al análisis, e incluso, durante el análisis. 
+Por ejemplo, digamos que se quiere calcular la media del siguiente vector:
+
+```{r, eval=TRUE, echo = FALSE}
+vec_w_NA <- c(1, 17, 25, NA, 42, 23, 8, 27, NA, 17)
+```
+
+```{r, eval=FALSE}
+vec_w_NA <- c(1, 17, 25, NA, 42, 23, 8, 27, NA, 17)
+mean(vec_w_NA)
+```
+
+Como se observa, el vector tiene dos datos faltantes, y al calcular la media, el resultado es un `NA`. 
+La razón de esto, es que no es posible realizar cálculos con datos faltan tes. Es por ello que se deben eliminar antes de realizar el calculo. 
+Sin embargo, no es necesario hacerlo de manera explicita, dado que las funciones estadísticas contienen argumentos que permiten eliminar de forma automática los `NA` del calculo.
+
+```{r, eval=FALSE}
+mean(vec_w_NA, na.rm=TRUE)
+```
+
+En la siguiente parte, veremos como podemos utilizar expresiones lógicas para obtener un conjunto de datos libre de `NA`. 
+
+### Indexado usando expresiones lógicas.
+
+En R, una _expresión_ es toda frase o segmento de código que puede ejecutarse. 
+Al escribir una linea de código, se esta creando una expresión de R que puede ser evaluada (al oprimir `Enter`). 
+Las expresiones evaluadas pueden mantenerse en memoria o tener desaparecer inmediatamente, dependiendo de si se almacena el resultado de la evaluación en una variable u objeto. 
+En este caso, la expresión es denominada _asignación_.
+
+**Expresiones lógicas**
+
+Una expresión lógica es un tipo especial de expresión de R que utiliza operadores lógicos de comparación para crearlas, y cuyo valor de retorno es siempre un valor lógico (`TRUE` o `FALSE`). 
+Ademas, también hace uso de los operadores lógicos `&` (_and_), `|` (_or_) y `!` (_not_):
+
+* `&` (_and_): se escribe `expresion_1 & expresion_2`, donde `expresion_1` y `expresion_2` son ambas expresiones lógicas. Devuelve `TRUE` si ambos `expresion_1` y `expresion_2` son `TRUE`, y devuelve `FALSE`, si una de las dos, o ambas expresiones, son `FALSE`.
+* `|` (_or_): se escribe `expresion_1 | expresion_2`, donde `expresion_1` y `expresion_2` son ambas expresiones lógicas. Devuelve `TRUE` si alguna o ambas expresiones son verdaderas, y `FALSE` si ambas son `FALSE`.
+* `!` (_not_): se escribe `!expresion_1` (es un _operador unario_, a diferencia de los anteriores. unario significa que recibe un solo operando), donde `expresion_1` es una expresión lógica. Devuelve `TRUE` si la expresión es `FALSE`, y devuelve `FALSE` si la expresión es `TRUE`. 
+
+Por ejemplo, digamos que tenemos dos vectores numéricos y queremos realizar una acción sobre ellos. Pero antes de realizar cualquier acción, se necesita asegurar que todos los valores sean positivos y que al menos alguno sea mayor a $50$. Podemos verificar ambas expresiones lógicas como sigue:
+
+```{r, eval=FALSE}
+my_sample <- sample(1:100, 100, replace=TRUE)
+all(my_sample > 0) & any(my_sample >= 50)
+```
+
+También es posible utilizar el operador `|` en el ejemplo anterior, y el resultado podría variar dependiendo de `my_sample`. 
+En el caso del operador `!`, se puede usar como sigue:
+
+```{r, eval=FALSE}
+!all(my_sample > 0)
+```
+
+Los operadores lógicos indicados evalúan ambas expresiones antes de arrojar un resultado final. 
+Existen otro par de operadores lógicos que no necesariamente evalúan ambas expresiones: los operadores `&&` y `||`. Estos operadores permiten ahorrar tiempo a la hora de evaluar expresiones lógicas, dado que se puede escapar tempranamente de la expresión si la condición de la izquierda no cumple una condición.
+
+Un ejemplo que facilita el entendimiento de estos operadores es la división entre cero. Podemos intentar evaluar si $sen(1/x)$ es igual a cero, `sin(1 / x) == 0`. Pero dado que la división entre cero no esta definida, hay que verificar que $x$ no sea cero, y en caso de serlo, no realizar la evaluación de `sin(1 / x) == 0`.
+Si se hiciera de la forma usual:
+
+```{r, eval = FALSE}
+x <- 0
+(x == 0) | (sin(1 / x) == 0)
+```
+
+el resultado es `TRUE` ya que el operando de la derecha es `NA`, por lo que se ignora al evaluar la expresión `TRUE | NA`.  
+Al usar la expresión:
+
+```{r, eval = FALSE}
+(x == 0) || (sin(1 / x) == 0)
+```
+
+no arroja ninguna advertencia debido a que ahora, la expresión de la derecha no se evalúa hasta que la expresión de la izquierda no es `FALSE`. 
+La razón de esto, es que cuando se usa el operador _or_, si la primera expresión es `FALSE`, todavía hay posibilidad de que toda la expresión `expresion_1 || expresion_2`, sea `TRUE`. 
+Por lo tanto, la expresión de la derecha solo se evalúa si aun hay oportunidad de que la expresión total sea `TRUE`. 
+
+El operador `&&` funciona de forma similar, pero la expresión de la izquierda solo se evalúa si la expresión de la derecha es `TRUE`, dado que si esto ocurre, aun hay oportunidad de que al expresión completa sea `FALSE`, si la expresión de la derecha es `FALSE`. 
+
+**Indexado por expresiones lógicas.**
+
+Las expresiones lógicas son muy útiles para indexar vectores basado en el resultado de la expresión. 
+El indexado devuelve solo los elementos del vector para los cuales el resultado de la expresión es `TRUE`. Esto requiere que la longitud del resultado de la expresión lógica sea igual; a la longitud del vector que se busca indexar. 
+Por ejemplo, podemos seleccionar los elementos de un vector diferentes de `NA` usando:
+
+```{r}
+vec_w_NA[!is.na(vec_w_NA)]
+```
+En el análisis estadístico de datos, es sencillo seleccionar aquellos elementos por encima de la media, o mas importante aun, seleccionar datos atípicos de una muestra. Un dato se considera atípico si cae a mas de dos desviaciones estándar de la media. De forma que se pueden seleccionar usando:
+
+```{r}
+my_sample <- c(1, 3, 11, 5, 15, 8, 2, 14, 7, 2, 14, 29, 55)
+my_sample[(my_sample - mean(my_sample)) / sd(my_sample) > 2]
+```
+
+Los `NA` causan problemas en el indexado de expresiones logicas, y por tanto afectan el resultado de la evaluacion de expresiones de indexado:
+
+```{r}
+vec_w_NA[vec_w_NA > mean(vec_w_NA, na.rm=TRUE)]
+```
+
+El resultado, como se espera contiene `NA`, porque son ignorados en la expresion de indexado. Para evitar esto, es mejor utilizar la funcion `subset`, la cual permite ignorar los `NA` en el vector:
+
+```{r}
+subset(vec_w_NA, vec_w_NA > mean(vec_w_NA, na.rm=TRUE))
+```
+
+Otra función de importancia en el indexado por expresiones lógicas es `which`. Esta recibe una expresión lógica, y devuelve las posiciones en el vector resultante de la expresión lógica en los cuales el resultado es `TRUE`. 
+Por ejemplo:
+
+```{r}
+which(my_sample > mean(my_sample))
+```
+
+Como esta devuelve posiciones en el vector donde se cumple una condición, es posible usarlo en para indexar el vector, u otro vector relacionado, usando `my_sample[which(my_sample > mean(my_sample))]`. 
+
+## Marices y arreglos.
+
+Las matrices y arreglos no suelen aparecer como estructuras en el análisis de datos. 
+Pero debido a que las tablas de contingencia oara multiples variables categoricas presentan multidimensionalidad como las matrices y arreglos, estas se describirán de forma breve y por completitud.
+
+### Matrices.
+
+Las matrices en R se construyen a partir de vectores usando la función `matrix`, y especificando _atributos_ de esta clase de objetos que determinan las dimensiones de la matriz. 
+Para crear vectores columna, de orden $k\times1$ se usa:
+
+```{r, }
+matrix(1:5)
+```
+
+Por omisión, si no se especifica los atributos de dimension, la matriz creada es un vector columna (en un sentido matematico, y no un objeto vector como los vistos antes). Un vector fila se puede crear especificando el argumento `ncol` como la longitud del vector que se pasa como argumento:
+
+
+```{r,}
+matrix(1:5, ncol=5)
+```
+
+Para crear matrices rectangulares o cuadradas se usan los argumentos `ncol` o `nrow` o ambos:
+
+```{r, }
+matrix(1:6, nrow=2)
+```
+
+Deben notar que la matriz es generada colocando los elementos columna a columna. Si se quiere generar una matriz cuyos elementos se coloquen fila a fila, se debe usar el argumento `byrow` como sigue:
+
+```{r, }
+my_matrix <- matrix(1:6, nrow=2, byrow=TRUE)
+my_matrix
+```
+
+Otra forma de crear matices a partir de vectores es usando las funciones `rbind` y `cbind`, las cuales unen dos vectores usándolos como filas o columnas, respectivamente.
+
+```{r, eval=FALSE}
+rbind(1:6, 10:16)
+cbind(1:6, 10:16)
+```
+
+Notamos que, si es necesario, se realiza el reciclado de elementos para obtener un resultado consistente, dejando una advertencia que nos dice tengamos cuidado.
+
+Es posible realizar operaciones aritméticas en matrices de la misma forma que con los vectores, siempre y cuando los operandos sean del mismo orden (igual dimensión):
+
+```{r, eval=FALSE}
+my_matrix + my_matrix
+my_matrix - my_matrix
+my_matrix * my_matrix
+my_matrix / my_matrix
+```
+
+Al correr las expresiones anteriores, notara que al igual que en los vectores, las operaciones aritméticas se realizan elemento a elemento. 
+En matemática, el producto de matrices no se hace elemento a elemento. Es por eso que existe un operador de producto matricial `%*%` que se encarga de llevar a cabo la operación producto de la forma usual:
+
+```{r, eval=FALSE}
+my_matrix %*% my_matrix
+```
+
+El numero de columnas de la matriz de la izquierda debe ser igual al numero de fila de la matriz de la derecha. 
+
+Las operaciones aritméticas usando como operandos una matriz y un vector son posibles llevarlas a cabo, debido a un proceso llamado _coerción_. La coerción se refiere al intento de transformar un objeto de una clase a un objeto de otra clase para que la operación pueda llevarse a cabo. 
+Solo se debe tener cuidado con la forma en la que las operaciones se llevan a cabo. 
+
+```{r,}
+matrix(1:6, nrow=2) * 1:4
+```
+
+Como se observa, el vector es coercionado a un objeto de clase matriz, y luego, la operación se hace por columnas, en este caso, multiplicando los elementos de la primera columna de la matriz con los elementos del vector, luego la segunda columna, luego la tercera, y asi sucesivamente, reciclando el vector si es necesario hasta que todos los elementos de la matriz hayan sido operados. Si la longitud del vector no es divisor de $m\times n$ ($m$ son el numero de filas, y $n$ el numero de columnas de la matriz), se lanza una advertencia. 
+
+**Nota sobre Coerción de objetos.** La coerción de objetos es algo inocuo en R. Por ejemplo, cuando realizamos la operación `1L + 3.5`, se esta realizando la suma de un objeto de clase `integer` y uno de clase `numeric`. De forma implicita, el interprete de R se encarga de coercionar el `integer` a un objeto de clase `numeric` para realizar la suma, y devuelve un objeto de la clase apropiada. Esto ya se ha visto antes al usar valores lógicos para contar el numero de elementos que cumplen una condicion. `sum` funciona, por que es capaz de coercionar los valores `logical` a `numeric`, de tal forma que la suma tenga sentido. Es por eso que expresiones de la forma `TRUE + TRUE` no generan problemas (aunque no es algo que vayas a encontrar en un programa).
+ 
+También es posible construir expresiones lógicas usando matrices al igual que antes, de forma que se obtienen matrices lógicas. 
+Ademas, las expresiones lógicas se pueden utilizar para indexar las matrices. 
+El indexado de matrices se puede hacer especificando la posicion en la fila y la columna. 
+
+```{r, eval=FALSE}
+my_matrix[2, 3] # elemento de la segunda fila y tercera columna
+my_matrix[2, ] # toda la segunda fila. vector
+my_matrix[, 1] # toda la primera columna. vector
+my_matrix[, 1, drop=FALSE] # toda la primera columna. En forma de matrix
+```
+
+Varias funciones pueden aplicarse sobre la matriz para conocer atributos de la misma:
+
+* `nrow`: devuelve el numero de filas de la matriz que recibe como argumento. 
+* `ncol`: devuelve el numero de filas de la matriz que recibe como argumento.
+* `dim`: devuelve un vector cuyos elementos son el numero de filas y columnas de la matriz
+
+Otras funciones permiten realizar cálculos usuales realizados en álgebra lineal como la traspuestas, `t`; el determinante, `det`, si la matriz es cuadrada; o si la matriz es cuadrada e invertible, se puede obtener la inversa usando `solve(my_matrix)`. 
+La función `solve` también recibe como segundo argumento un vector, de forma que permite resolver un sistema de ecuaciones lineales usando descomposición de valor singular. 
+
+### Arreglos.
+
+Los arreglos son útiles cuando se necesitan estructuras de mas de dos dimensiones. 
+Estos pueden aparecer al construir tablas de contingencia a partir de tres o mas variables nominales u ordinales.
+
+Para construir un arreglo de dimensiones $n\times m\times k$, solo se debe usar la función `array`, pasando un vector cuya longitud sea `prod(dim(array))`, y un vector que especifique las dimensiones. 
+Por ejemplo:
+
+```{r, eval=FALSE}
+array(c(my_sample, 5), c(2, 3, 2))
+```
+
+genera un arreglo de 2 matrices (el tercer elemento de la dimensión), cada una con dos filas y tres columnas.
+
+## Factores
+
+Los factores son un tipo de dato especial en R que permite almacenar de forma eficiente datos categoricos: nominales u ordinales. 
+Estos se construyen, al igual que las matrices, a partir de vectores. Y asi como las matrices, los factores tienen un atributo que los diferencia de vectores ordinarios. 
+Este atributo se refiere a los niveles (_levels_) del factor: los valores posibles de un factor. 
+En el análisis de datos, es de vital importancia ya que el comportameinto de modelos estadisticos depende del tipo de los valores de entrada, además de que muchas funciones estadísticas en R tratan los factores de manera distinta a como se tratan los vectores de carcateres. 
+
+Para crear un factor se usa la función `factor`:
+
+```{r, }
+rating <- c("Very Bad", "Medium", "Very Bad", "Good", "Medium", "Very Good", "Medium", "Good", "Medium", "Bad")
+rating_factor <- factor(rating)
+rating_factor
+```
+
+El resultado muestra los elementos del factor, y debajo, las etiquetas de los niveles del factor. 
+Podemos ver que este es distinto de un vector de caracteres:
+
+```{r, }
+typeof(rating_factor)
+```
+
+El tipo de los elementos almacenados en el vector es `integer`. Esto es asi porque los factores se representan como enteros internamente. Los niveles son etiquetas asociadas a cada uno de esos enteros. 
+Se puede saber los niveles de un factor usando la función `levels`:
+
+```{r, }
+levels(rating_factor)
+```
+
+la cual devuelve un vector de caracteres con las etiquetas de los niveles, en orden alfabético. 
+Esto ocurre así por omisión: los niveles de un factor se almacenan en orden alfabético. 
+Sin embargo, podemos especificar el orden en el que se almacenan las etiquetas al crear el factor:
+
+```{r, }
+rating_factor <- factor(rating, levels=c("Very Bad", "Bad", "Medium", "Good", "Very Good"))
+rating_factor
+```
+
+Esto es importante cuando se quiere especificar un nivel de referencia con el cual comparar los resultados de un modelo estadistico. Por ejemplo, si en un estudio se busca usar como variable independiente el habito de fumar, codificado como _Fumador_ y _No Fumador_, tiene sentido usar el nivel de _No Fumador_ como referencia, de forma que cualquier analisis que use un modelo estadistico compare el cambio en la respuesta como consecuencia del habito de fuumar. 
+Sin embargo, al crear un factor, debido a que se almacenan alfabéticamente los niveles, el nivel _Fumador_ quedaría como nivel de referencia:
+
+```{r, }
+smoker <- c("No Fumador", "Fumador", "No Fumador", "No Fumador", "Fumador", "Fumador", "No Fumador", "Fumador", "Fumador", "No Fumador")
+smoker_factor <- factor(smoker)
+smoker_factor
+```
+
+Es por ello, que resulta conveniente el uso del argumento `levels` en la función `factor`:
+
+```{r, }
+smoker <- c("No Fumador", "Fumador", "No Fumador", "No Fumador", "Fumador", "Fumador", "No Fumador", "Fumador", "Fumador", "No Fumador")
+smoker_factor <- factor(smoker, levels=c("No Fumador", "Fumador"))
+smoker_factor
+```
+
+Hasta este momento, hemos asumido que los factores que hemos creado corresponden a representaciones de variables catgoricas nominales. 
+Para crear factores que correspondan a representaciones de variables catgoricas ordinales, se puede hacer especificando el argumento `ordered=TRUE` en la funcion `factor`; o se puede hacer directamente usando la función `ordered`: 
+
+```{r, eval=FALSE}
+# Este ordenamiento tiene sentido en escalas tipo Likert
+rating_factor <- factor(rating, levels=c("Very Bad", "Bad", "Medium", "Good", "Very Good"), ordered=TRUE)
+rating_factor <- ordered(rating, levels=c("Very Bad", "Bad", "Medium", "Good", "Very Good"))
+```
+
+El especificar de forma explicita los niveles tiene otra ventaja importante: Permite detectar tempranamente errores de codificación de elementos dentro de una variable. 
+Por ejemplo, digamos que al definir el vector `smoker` cometimos un error de tipeo, y uno de los elementos lo escribimos `"Funador"` (tecleamos N en lugar de M). Al crear el factor con los niveles especificados:
+
+```{r, }
+smoker <- c("No Fumador", "Funador", "No Fumador", "No Fumador", "Fumador", "Fumador", "No Fumador", "Fumador", "Fumador", "No Fumador") # El segundo elemento tiene el error de tipeo
+smoker_factor <- factor(smoker, levels=c("No Fumador", "Fumador"))
+smoker_factor
+```
+
+vemos como el factor contiene un `NA` donde ocurrió el error de tipeo. 
+Esto es un problema, ya que pueden introducirse de forma inesperada datos faltantes donde no los hay, y, peor aún, R no nos advierte de nada de esto. 
+Es posible evitar este comportamiento usando `parse_factor` en el paquete `readr` (que usaremos mas adelante para importar datos). Ahora, al crear el factor, R nos muestra una advertencia de que algo no salió como se esperaba, haciendonos sospechar del resultado y que seamos cuidadosos. 
+
+```{r, }
+library(readr)
+
+smoker_factor <- parse_factor(smoker, levels=c("No Fumador", "Fumador")) # Genera una advertencia
+smoker_factor # Imprime el resultado anterior, pero tambien la advertencia, y donde ocurrió
+```
+
+**Buenas prácticas de programación.** De forma general, al crear factores, siempre es mejor hacer explicitos los niveles y, aunque las advertencias son adecuadas para manjar con cuidado resultados inesperados como los del ejemplo anterior, siempre es preferible no crear factores que de entrada sabemos son erroneos. 
+
+Para evitar la creación de factores mal especificados, se utiliza la función `fct` en el [paquete `forcats`](https://forcats.tidyverse.org/index.html) (un paquete diseñado especificamente para trabajar con factores), el cual se diferencia de `factor` en que los niveles se crean en el orden en que aparecen en el vector de entrada, y no alfabéticamente.
+
+```{r, }
+library(forcats)
+
+smoker <- c("No Fumador", "Fumador", "No Fumador", "No Fumador", "Fumador", "Fumador", "No Fumador", "Fumador", "Fumador", "No Fumador")
+smoker_factor <- fct(smoker, levels=c("No Fumador", "Fumador"))
+```
+
+Crear factores ordenados no es tan directo, pero el beneficio de crear factores correctos desde el inicio es más importante:
+
+```{r, eval=FALSE}
+# Especificando los niveles
+rating_factor <- fct(rating, levels=c("Very Bad", "Bad", "Medium", "Good", "Very Good")) %>% 
+	lvls_reorder(1:5, ordered=TRUE)
+```
+
+El simbolo `%>%` es un operador, el operador de _tuberia_ (de la palabra inglesa _pipe_), el cual se carga en la sesión de R al cargar el paquete `forcats`. El uso de este operador se difiere hasta el siguiente capitulo. 
+En este momento es suficiente que entienda que cada vez que aparezca una expresión de la forma `objeto %>% funcion(primer_arg, segundo_arg, ...)`, R lo interpreta como `funcion(objeto, primer_arg, segundo_arg, ...)`. 
+
+Otras funciones importantes para manejar factores, junto con un ejemplo de su uso, se presenta a continuación^[Más información esta disponible en la documentación.]:
+
+* `fct_relevel`: nos permite jugar con el orden de los niveles de un factor. Por ejemplo:
+
+```{r, eval=FALSE}
+fct(c("Fuego", "Tierra", "Agua", "Aire")) %>% 
+	fct_relevel("Agua", "Tierra", "Fuego")
+```
+
+* `fct_inorder`, `fct_infreq`: estas se encargan de ordenar los niveles de un factor en el orden en el que aparecen (`fct_inorder`) o en el orden especificado por la frecuencia con que aprece cada etiqieta (`fct_infreq`). 
+
+```{r, eval=FALSE}
+vertebrates <- fct(sample(c("Mamifero", "Ave", "Reptil", "Pez", "Anfibio"), 250, replace=TRUE))
+invertebrate <- fct(sample(c("Diptero", "Odonata", "Porifera", "Cnidario", "Aracnido"), 25, replace=TRUE))
+animal_cat <- fct_c(vertebrates, invertebrate) # fct_c permite combinar factores, preservando los niveles de los factores de entrada
+
+animal_cat %>% fct_infreq()
+```
+
+* `fct_lump` y `fct_lump_*`: estas funciones permiten agrupar niveles, preservando un numero especificado de veeces o solo aquellos niveles de baja frecuencia.
+
+```{r, eval=FALSE}
+animal_cat %>% 
+	fct_lump_lowfreq(other_level = "Invertebrados")
+```
+
+* `fct_expand`: permite añadir niveles adicionales a un factor, ya sea que existan o no representastes de estos niveles en el factor.
+
+```{r, eval=FALSE}
+animal_cat %>% 
+	fct_expand("Himenoptero", "Platelmintos", "Equinodermos", "Anfioxo", after=5)
+```
+
+* `fct_collapse`: permite agrupar los niveles en niveles nuevos manualmente definidos.
+
+```{r, eval=FALSE}
+animal_cat %>% 
+	fct_collapse(
+		Vertebrados=c("Mamifero", "Ave", "Reptil", "Pez", "Anfibio"),
+		Invertebrados=c("Diptero", "Odonata", "Porifera", "Cnidario", "Aracnido"))
+```
+
+* `fct_drop`: devuelve un factor cuyos niveles son solo aquellos representados dentro del factor.
+
+```{r, eval=FALSE}
+animal_cat %>% 
+	fct_expand("Angiospermas") %>% # Añade un nivel llamado Angiospermas
+	fct_drop() 
+```
+
+* `fct_other`: Reemplaza los niveles especificados con un nivel especificado (por omisión, "other").
+
+```{r, eval=FALSE}
+animal_cat %>% 
+	fct_expand("Himenoptero", "Platelmintos", "Equinodermos", "Anfioxo", after=5) %>%
+	fct_other(keep = c("Mamifero", "Ave", "Reptil", "Pez", "Anfibio", "Anfioxo"), 
+		other_level="Sin notocordio") # Deja los cordados
+```
+
+* `fct_count`: cuenta el numero de elmentos del factor que pertenece a cada nivel. El resultadoe s una estructura de datos especial llamada `tibble` que veremos en la siguiente sección.
+
+```{r, eval=FALSE}
+animal_cat %>% 
+	fct_count(sort=TRUE)
+```
+
+## Tablas de Datos (_data frames_).
+
+
+
+## Listas.
+
+
+
+<!---
+
+
+
+## Importando datos.
+
+https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/seq.POSIXt
+https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/seq.Date
+https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/all.equal
+https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/DateTimeClasses
+https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/table
+https://www.rdocumentation.org/packages/forcats/versions/1.0.0
+https://tibble.tidyverse.org/reference/index.html
+https://fhernanb.github.io/Manual-de-R/funbas.html#funciones-sort-y-rank
+https://bookdown.org/rdpeng/rprogdatascience/vectorized-operations.html
+https://es.wikipedia.org/wiki/Vectorización_automática
+
+--->

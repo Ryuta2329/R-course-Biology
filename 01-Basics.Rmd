@@ -1,0 +1,334 @@
+# Empezando: Comandos Básicos.
+
+Lo primero para utilizar R es asegurarte que lo tengas instalado en tu computadora. 
+R esta disponible para diferentes sistemas operativos en [*Comprehensive R Archive Network*](http://cran.r-project.org) (CRAN). 
+En Windows, debes descargar el instalador *R.exe* y luego ejecutarlo y seguir las instrucciones. 
+En distribuciones de Linux puedes hacerlo de forma manual descargando los binarios y luego instalando *from source*, o lo puedes hacer desde el repositorio usando la herramienta  `apt-get` (para Ubuntu 20.04 LTS [esta guía](https://fahim-sikder.github.io/post/how-to-install-r-ubuntu-20/) puede ser útil. 
+Además, contiene una guía para instalar el paquete `tidyverse` en este sistema operativo). 
+
+## El entorno de trabajo.
+
+Una vez instalado R, lo inicializas ejecutando el icono *Rgui.exe* (Windows) o escribiendo `R` (Linux) en la terminal. 
+Esto hará que aparezca la terminal de comandos de R que espera por ti a que ejecutes tus comandos. 
+El punto de entrada de comandos se reconoce por el símbolo `>`, y es el indicador de que se ha iniciado una nueva sesión de R de forma exitosa. 
+
+Una vez iniciado R, este denomina a uno de los directorios en tu disco duro como directorio de trabajo (*working directory* en ingles), que es donde R busca por cualquier archivo, programa o datos pertenecientes al usuario (¡a ti!) el cual quieras utilizar. 
+Una forma de determinar cual es el directorio de trabajo es usando la función `getwd()` (ahí dice: *obtener directorio de trabajo* en ingles). 
+
+Por lo general, si vas a usar R para procesar y analizar tus propios datos o guardar resultados (bases de datos procesadas, imágenes o archivos) entonces debes de poder cambiar de directorios^[Puedes encontrar una explicación acerca de los directorios en [aquí](https://es.wikipedia.org/wiki/Directorio)]. 
+Para este proceso existe la función `setwd("tu/directorio/personal")` (ahí dice: *establecer directorio de trabajo* en ingles), donde "tu/directorio/personal" es la dirección donde se encuentra tu carpeta personal en el disco duro ^[Las comillas son obligatorias. Mas adelante cuando aprendas sobre la representación y los tipos de datos sabrás porque.]. 
+Por ejemplo, supongamos que tienes una o mas bases de datos que quieres procesar en una carpeta llamada "misDatos" que se encuentra en "C:" (el disco duro por omisión en Windows). 
+Para cambiar a este directorio escribirías en R:
+
+```
+    setwd("C:/misDatos")
+```
+
+Los directorios los puedes entender como carpetas dentro de otras carpetas: por ejemplo, los documentos guardados en una carpeta llamada, digamos, "Mi Carpeta Personal" que se encuentra en el escritorio de Windows se encuentran en la dirección `"C:/users/Tu Usuario/Desktop/Mi Carpeta Personal"`. 
+Mi recomendación es que guardes todos tus archivos en una carpeta personal que tenga una estructura clara y bien organizada como la que se muestra en la figura \@ref(fig:wdir). 
+Esa es la forma como estructura mi directorio de trabajo:
+
+```{r wdir, echo = FALSE, out.width='100%', fig.align='center', fig.cap='Estructura de directorios personales.'}
+#knitr::include_graphics(here::here("figs", "wdStruct.png"))
+```
+
+**Buenas prácticas de programación.** Esta es una forma de mantener una estructura consistente y portable de organizar tus archivos y que es usada por otros programadores. 
+Recuerda, es posible que tus programas no solo los termines usando tú, sino que otras personas también.
+
+* En la carpeta *Data* se encuentran todas las bases de datos: archivos de Excel (.xlsx), de valores separados por coma (.csv), de datos (.dat), de datos de R (.Rdata), y otros^[Las palabras luego del punto que se encuentran entre paréntesis se conocen como extensiones del archivo o formato del archivo. Todos los archivos de Excel finalizan con la extensión .xlsx, y ese es su formato (aunque uno le diga formato de Excel). De igual forma, otras extensiones definen otros formato de datos y cada uno representa el contenido del archivo de una forma particular (puedes pensar en la diferencia en como se representa la data en un archivo PDF y uno de Word).]. 
+* En la carpeta *ext* se encuentran *scripts* de R (.R) que contienen funciones con funciones especificas que yo mismo escribí o que fueron escritas por alguien más. 
+* En *output* coloco toda la información que quiero guardar como gráficos (.jpeg, .png, .tiff, etc.), archivos PDF o de Word (.docx).
+* En *src* (esto es abreviado para *source code*) se encuentran todos mis *scripts* de R, así como archivos de *rmarkdown* (.Rmd)^[Otras personas llaman a esta carpeta *R* en lugar de *src*. La razón de porque yo la llamo *src* es porque tengo en esta carpeta otros programas con otras extensiones diferentes a la de R (.pl, .py, .cpp, .h, .md, .jl, etc.).].
+
+Otra forma de mantener estructuras organizadas es por medio de la creación de proyectos en RStudio. Yo no he usado RStudio y por lo tanto no comentare al respecto, pero puedes encontrar un *tip* interesante en @RTips, y existen otros artículos en Internet que puedes consultar. 
+
+## Usando la consola: operaciones matemáticas en R.
+
+Una vez instalado R, ya puedes empezar a utilizarlo escribiendo comandos y luego presionando la tecla de Retorno (*Enter*) para ejecutarlos. Un uso básico de R como entorno es como calculadora científica, realizando operaciones matemáticas sencillas:
+
+```{r OpsAritmeticas, eval = F}
+    100 + 32  # Suma 
+    54 - 85   # Resta 
+    72 * 8    # Multiplicación 
+    54 / 3    # División
+```
+
+Además de estas, existen otras operaciones matemáticas: la exponenciación (p. ej. `2 ^ 4` o alternativamente `2 ** 4`. Ambos dan el mismo resultado), el módulo (`10 %% 3`, devuelve el resto de la operación de división), y la división entera (`10 %/% 3`, regresa la parte entera del resultado de dividir el operando izquierdo entre el derecho, en este caso, regresa 3). También puedes agrupar las operaciones usando paréntesis para especificar el orden en el que se hacen las operaciones matemáticas. Por ejemplo:
+
+```{r, eval = F}
+    100 + 3 / 5 + 1      # 101.6 
+    (100 + 3) / 5 + 1    # 21.6
+    100 + 3 / (5 + 1)    # 100.5
+    (100 + 3) / (5 + 1)  # 17.16667
+```
+
+En el código anterior, todos los resultados son diferentes porque el orden en el que se evalúan las operaciones es distinto debido a la presencia de los paréntesis. Las operaciones en paréntesis siempre se evalúan primero, seguido se evalúan todas las multiplicaciones y divisiones, y por ultimo las sumas y restas. De igual forma, si hay operaciones de exponenciación, estas se evalúan después de las operaciones en paréntesis y antes de las divisiones y multiplicaciones. Esto es lo que se conoce como precedencia de operaciones.
+
+Puede ocurrir que al introducir los datos nos falte algún termino o no hayamos cerrado los paréntesis completamente, etc. En esto casos, R mostrara el símbolo de continuación de comando `+`, en lugar del símbolo usual, `>`. Esto solo quiere decir que R esta esperando por mas comandos para completar la linea de código. Termina el comando o presiona la tecla *Esc* para terminar el comando sin que se ejecute.
+
+También se pueden llevar a cabo el calculo de las funciones usuales como el valor absoluto (p. ej. `abs(8)`), la exponencial (p. ej. `exp(1)`), el logaritmo natural (p. ej. `log(10)`) o el logaritmo en cualquier otra base (p. ej. `log(10, 5)` arroja el logaritmo en base 5 de 10. Existen funciones logarítmicas en bases usuales como 2 (`log2()`) o 10 (`log10()`) debido a que son de uso rutinario en ciertas aplicaciones), la raíz cuadrada (p. ej. `sqrt(2)`), y funciones trigonométricas (p. ej. `cos(pi/4)`, `sin(pi/4)`, y `tan(pi/4)`. R reconoce a `pi` como la constante numérica $3.1415926535...$ Las funciones inversas son `acos`, `asin` y `atan`). 
+
+Por omisión, R muestra en los resultados solo 7 cifras significativas. Esto lo puedes cambiar usando `options(digits = numero)`. Por ejemplo, si quieres que se muestren, digamos, 10 cifras significativas usas `options(digits = 10)`. También puedes redondear hacia arriba o hacia abajo los resultados de operaciones usando las funciones `ceiling` y `floor`, respectivamente.
+
+**Pon en práctica lo que aprendiste.** Escribe en R las siguientes operaciones matemáticas y obtén los resultados:
+
+1. $1 + \frac{5}{15 + 8}$
+2. $\sqrt{3^2 + 4^2}$
+3. $\frac{10}{10 + \text{e}^{1.5\times20}}$
+
+## Asignación de variables.
+
+Otra operación común en las matemáticas es asignarle a una variable un valor. En R, esto también puede realizarse, de forma que se pueda almacenar en memoria un número o una palabra, o incluso el resultado de operaciones matemáticas. Para llevar a cabo la asignación se utiliza el operador de asignación (Duh!), `<-`. Por ejemplo, si quieres asignarle el resultado de obtener la raíz cuadrada de 32 a la variable `x`, se escribe:
+
+```{r Asignacion, eval = F}
+    x <- sqrt(32)
+```
+
+A este proceso de asignarle un valor a una variable se le denomina declaración o instanciación de variables: en este caso, se ha declarado la variable `x` asignándole el valor de `sqrt(32)`. Una vez declarada, se puede ver el valor escribiendo el nombre de la variable en la consola y seguido presionando *Enter*. A esto se le llama *llamar* a la variable (*call* en ingles). Hay otras dos formas de llamar a una variable: usando la función `print`, pasando la variable como argumento (en el ejemplo anterior, si quisieras llamar a `x` podrías hacerlo con el comando `print(x)`). De hecho, cuando llamas una variable usando solo su nombre en la consola, lo que esta sucediendo es que se llama a la función `print` de manera implícita. La segunda forma es haciendo uso de la función `cat`, la cual permite imprimir en pantalla lo que se encuentra almacenado en una variable (o el resultado de una llamada a una función) sin que se muestren las comillas. Esto permite una forma  más estilizada de presentar resultado.
+
+**Buenas prácticas de programación.** En una nota aparte, en la web vas a encontrar mucho código de otros programadores en el cual utilizan el operador `=` como operador de asignación en lugar de `<-`. Aunque esto no es errado (la única diferencia entre `=` y `<-` es que el último tiene mayor precedencia que el primero), la convención es usar `<-` como operador de asignación, y reservar el operador `=` como un símbolo de sintaxis que señala el paso de un argumento en la llamada a una función^[Wow! Aun no hablamos de funciones y puede que no sepas que son los argumentos, pero ya pronto lo sabrás. Por ahora solo tómame la palabra y usa `<-` cada que asignes valores a variables].
+
+Ahora, hay algunas reglas en el uso de nombres de variables: los nombres de las variables pueden contener solamente letras, números y/o punto (.) o un piso (`_`), siempre y cuando no empiecen con una letra o con el punto pero nunca pueden empezar con un punto seguido de un número (parece una regla bastante larga). Por ejemplo, variables como `x`, `my.variable`, `my_variable_2` o `.dot` son nombres de variables aceptables; pero `2_x`, `_wrong`, o `3error` no estan permitidas.
+
+**Buenas prácticas de programación.** Una nota importante sobre el nombre de las variables es que estos deben de significar algo, en el sentido que debe ser explicativo. Por ejemplo, si asignas el resultado de sumar `5 + 8` a una variable, un buen nombre para la variable sería `suma`. Si se trata de una operación más complicada, de repente `resultado` sea un buen nombre. No le asignes nombres aleatorios a las variables, eso solo hará que te pierdas y hará más difícil de leer el código, y aún más difícil el tener que mantenerlo y modificarlo (así que nada de llamar variables como tu *crush*. A él/ella no le importas y a nosotros tampoco). 
+
+Otro punto con respecto a esto, esta en el estilo o convenciones. Los programadores utilizan distintos estilos para nombrar las variables y puedes adherirte a alguno de ellos. Lo importante es que te mantengas consistente.  Algunos estilos o convenciones son los siguientes:
+
+```
+    namingconvention        
+    naming.convention       
+    naming_convention   
+    namingConvention   
+    NamingConvention  
+```
+
+Por lo general, uno al principio prueba varios estilos y termina adhiriéndose a uno que nos hace sentir bien al leerlo y escribirlo. Asi que haz varias pruebas y elige el que te haga sentir más cómoda. 
+
+Finalmente, en R hay lo que se conoce como palabras reservadas. Estas son caracteres o combinación de caracteres especiales que R utiliza para definir ciertos componentes del lenguaje. Por ejemplo, algunas palabras reservadas son `NA` para valores faltantes, o `TRUE` y `FALSE` para los valores lógicos. Como están reservadas para usos específicos, estas palabras no pueden ser utilizadas como nombres de variables (p. ej. la declaración `NA <- 25` resultará en un error. `NA` es un carácter reservado).
+
+## Tipos de datos y su manejo.
+
+Dentro de R, todas las variables están representadas como objetos y estos pueden manipularse de acuerdo las necesidades. La mayoría de los objetos, son o están compuestos por vectores (de hecho, R esta completamente vectorizados y esta es la estructura de datos más importante de la que hablaremos), y estos vectores pueden estar formados por uno de varios tipos básicos de datos: datos numéricos, caracteres, valores lógicos, o fechas. Para saber el tipo de dato que compone a un vector se puede utilizar la función `typeof()`.
+
+### Datos numéricos.
+
+Los datos numéricos pueden ser de uno de tres tipos: o `double`, que es el tipo de dato numérico por omisión, y se usa para representar cualquier número real en R. Otra clase de objetos numéricos corresponde a `integer`, que se usa para representar números enteros solamente. Para crear enteros simplemente coloca una `L` seguido del número:
+
+```{r integersDeclaration, eval = F}
+# Crea un entero
+my_int <- 4L
+
+# Verificando
+typeof(my_int)
+```
+
+R usa de forma intercambiable `double` e `integer` durante las operaciones matemáticas y en general no te daras cuenta cuando aparezcan enteros. Pero en ciertos casos es útil utilizar enteros ya que ocupan menos memoria (necesitas menos *bytes* para almacenar un `integer` en memoria que para almacenar un `double`). 
+
+Finalmente, el último tipo de dato numérico es el `complex` que se usa para representar números complejos: aquellos que presentan dos partes, una real y una imaginaria que viene representada por un múltiplo de $i$ ($i$ se define como $i = \sqrt{-1}$). Puede que nunca te encuentres con estos en tu vida, pero los números complejos tienen muchas aplicaciones en física, matemáticas e ingeniería, y aparecen en varios tópicos interesantes en biología. La manera de escribirlos en R es la siguiente:
+
+```{r, eval = F}
+# Un número complejo
+my_complex <- 1 + 2i
+
+# Verificas
+typeof(my_complex)
+```
+
+Un punto interesante, si tomas la raíz cuadrada de un número negativo vas a obtener como resultado `NaN` (este es un valor especial que significa *Not a Number* y que surge cuando intentas realizar operaciones matemáticas que dan como resultado valores indefinidos) seguido de una advertencia. La razón es que un número negativo en R se representa como un tipo `double`. Si quieres tener la raíz cuadrada de  un numero negativo, este debe representarse primero como un número complejo:
+
+```{r, eval = F}
+# -1 (la parte imaginaria esta multiplicada por cero, asi que el número es 
+# real. Pero de esta forma, R entiende que se trata de un tipo de dato 
+# `complex`)
+my_complex <- -1 + 0i
+sqrt(my_complex)
+```
+
+### Caracteres.
+
+Los caracteres o cadenas de caracteres son un tipo de dato que permite representar letras, palabras y frases en R. Para crear datos de tipo `character` solo tienes que escribir un cadena de caracteres entre comillas (") o comillas sencillas (')^[En R es indiferente si usas comillas dobles o sencillas para definir caracteres, el resultado final será el mismo. La razón de la existencia de ambos es que para escribir en una computadora unas comillas simple solo tienes que presionar una tecla, mientras que para la comillas dobles tienes que presionar dos teclas (por lo general, `shift + 2`, aunque depende de como este configurado tu teclado). Los programadores son flojos, y siempre que puedan ahorrarse el tiempo de presionar aunque sea una tecla, lo harán. Aunque en R ya esta tan extendido el uso de las comillas dobles, que será raro que encuentres código con comillas simples.]. Puedes usar la función `nchar` para conocer la longitud de una cadena de caracteres. 
+
+```{r Characters, eval = F}
+hello <- "Hello World!"
+hello
+
+nchar(hello) # 12: el espacio en blanco cuenta como un caracter.
+```
+
+Date cuenta, que los espacios en blanco son un tipo de caracter también. 
+
+Claro, existen funciones especificas que facilitan el manejo de cadenas de caracteres en R. Por ejemplo, la función `paste` permite unir dos cadenas de caracteres:
+
+```{r pasteFunction, eval = F}
+paste("Hello!", "R is fun", "right?")
+paste("Too", "many", "underscores!", sep="_")
+```
+
+La última línea de código utiliza el argumento `sep` de la función `paste` para especificar el separador que se coloca entre las cadenas de caracteres que se unirán. Puedes colocar cualquier separador que te parezca, incluso espacios vacíos (""). También puedes llevar a cabo el proceso inverso: tomar una cadena de caracteres y separarla en pedazos cada vez que se encuentre una coincidencia con respecto a un patrón^[Un patrón hace referencia a una expresión regular o *regex* (por *regular expression*) el cual simplemente es una expresión (cadena o secuencia de caracteres) que define un patrón de búsqueda. Este es un tema muy extenso y puede que no se cubra en este texto.] particular. Por ejemplo:
+
+```{r strsplitFunction, eval = F}
+strsplit("Break it Ralph! Break it!", " ")
+```
+
+rompe la cadena `"Break it Ralph! Break it!"` en subcadenas cada vez que encuentra una ocurrencia del patrón " " (un espacio en blanco), a saber, `"Break"`, `"it"`, `"Ralph!"`, `"Break"` e `"it!"`. 
+
+Además, puedes obtener subcadenas a partir de una cadena utilizando la función `substr`. Por ejemplo, `substr("This is my string", 9, 17)` extrae de la cadena `"This is my string"` una subcadena que empieza en el caracter 9 y termina en el 17 (ejecuta el comando para que observes el resultado).
+
+Otras funciones útiles lo son: *i)* Convertir un número en una cadena de caracteres: p. ej. `as.character(10)`. *ii)* Todo en minúscula (`tolower()`) y todo en mayúscula (`toupper()`). *iii)* Reemplazo de caracteres: puedes reemplazar todas las ocurrencias de un caracter en una cadena por otro. Por ejemplo:
+
+```{r chartrFunction, eval = F}
+r <- "La r en R es mayuscula!"
+chartr(r, old = "r", new = "R")
+```
+
+reemplaza todas las ocurrencias de `r` por una `R`. También funciona si usas mas de un caracter para reemplazar, siempre y cuando coloques por cual lo vas a reemplazar:
+
+```{r moreThanOne, eval = F}
+change_two <- "dexduzl znzlysis"
+chartr(change_two, old = "dz", new = "ta")
+```
+
+En este caso, todas las `d` son reemplazadas por una `t`, mientras que las `z` son reemplazadas por `a`. Esto es, el caracter original (`old`) en la $i$-esima posición es reemplazado por la coincidencia encontrada en el caracter nuevo (`new`) en la misma posición. Es por esto que las cadenas pasadas a los argumentos `old` y `new` deben contener el mismo número de caracteres.
+
+### Valores lógicos.
+
+Estos corresponden a uno de dos posibilidades: `TRUE` (verdadero) o `FALSE` (falso), los cuales son comúnmente utilizados en la toma de decisiones dentro de estructuras de control (Woops! Adelantándome otra vez. Ya pronto sabrás de que trata), y se pueden abreviar usando `T` o `F`.
+
+Estos valores, son el resultado de evaluar expresiones condicionales o relacionales. Estas expresiones se pueden identificar porque utilizan los operadores relacionales `<` (es menor que), `>` (es mayor que), `<=` (es menor o igual que), `>=` (es mayor o igual que), `==` (igualdad), y `!=` (desigualdad). Por ejemplo, supongamos que tienes un variable `v` a la cual le asignas el valor de 100. Puedes utilizar las operaciones relacionales de la siguiente forma:
+
+```{r LogicalOps, eval = F}
+    v <- 100
+
+    v > 5         # TRUE: 100 si es mayor a 5
+    v < 50        # FALSE: 100 no es menor a 50
+    v == 100      # TRUE: 100 es igual a 100
+    v != 1000     # TRUE: 100 es diferente de (o no es igual a) 1000
+```
+
+Si utilizas la función `typeof` sobre el resultado de una operación lógica, el resultado te dirá que el resultado es un valor lógico (p. ej. `typeof( v >= 65)` arrojara `logical` como resultado. ¡Pruebalo!).
+
+Por último, existen funciones que devuelven valores lógicos y son utiles para saber si una variable particular corresponde a un tipo de dato dado. Estas funciones son de la forma `is.*`, donde el asterisco corresponde a algun tipo de dato que quieras comprobar. Por ejemplo,
+
+```{r isFunctions, eval = F}
+num <- 1457           # Un numero
+int <- 65L            # Un entero
+boo <- "Boo!"         # Una cadena de caracteres
+logic <-  num > int   # Un valor lógico
+
+# Uso de las funciones is.*
+is.numeric(num)
+is.integer(int)
+is.character(boo)
+is.logical(logic)
+```
+
+confirman que las variables declaradas corresponden a sus tipos de datos asignados. Es por ello que todas las funciones arrojan `TRUE` al ejecutarlas (¿Los ejecutaste para comprobarlo?). También podrías haber evaluado el comando `is.numeric(logic)`. En este caso, el resultado es `FALSE`, porque `logic` es una variable de tipo `logical`, no `numeric`.
+
+### Fechas y tiempo.
+
+Las fechas y el tiempo son unas de esas cosas que todos creemos manejar fácilmente, pero que en la practica se convierten en difíciles de tratar. La razón de esto es que las fechas y el tiempo dependen de dos factores: el movimiento de rotación y traslación terrestre, en conjunto con los problemas geopolíticos de asignar zonas horarias.
+
+Puedes obtener la hora actual, así como fecha y la zona horaria utilizando las funciones `Sys.timezone()`, `Sys.Date()`, `Sys.time()`. Sin embargo, hay veces en las que hay que tratar con fechas y horas que no corresponden al actual y, por lo general, estas son importadas a R en forma de caracteres. Por lo tanto, estas se deben de convertir a objetos de clase `Date` o `POSIXct` (en el caso de horas)^[Esto de las clases y los objetos se volverá más importante y lo aclararé mas adelante. Por ahora solo es necesario que entiendas que los objetos representados en R pertenecen a clases particulares (p. ej. las fechas corresponden a objetos de la clase `Date`) los cuales pueden tener atributos particulares que definen algunas características del objeto (p. ej. un atributo de un vector es la longitud, esto es, cuantos elementos contiene el vector).] antes de poder usarlas. Puedes hacerlo de la siguiente forma:
+
+```{r Covert2Dates, eval = F}
+# El formato por omisión es YYYY-MM-DD (año, mes, día)
+as.Date("1994-10-29")
+
+# A veces es mejor especificar el formato
+as.Date("29/10/1994", format = "%d/%m/%y")
+```
+
+Date cuenta que el separador de los componentes de la fecha puede ser distinto: en el ejemplo, una fecha usa como separador "-", mientras que la otra usa "/". Otros separadores comunes son el punto (".") o sin separador (""). Si utilizas la función `typeof` sobre un objeto de la clase `Date` o `POSIXct` el resultado será `double`: esto es así porque internamente R representa las fechas y horas como números de punto flotante.
+
+También puedes crear un objeto de clase `POSIXct` usando la función `ISOdate`, la cual recibe literales de cadena especificando el año, mes, día, hora, minuto, segundos, e incluso zona horaria (p. ej. `ISOdate(year = "2020", month = "03", day = "10")`). Luego, puedes convertir este a una fecha (objeto de clase `Date`) usando `as.Date` al igual que antes.
+
+Una funcionalidad mas acerca de las fechas y horas, es que puedes realizar cálculos con estas:
+
+```{r CalculosTDates, eval = F}
+# Cálculos con fechas
+x <- Sys.Date() # Fecha Actual
+y <- as.Date("2020-03-01") # Por ahí inicio la pandemia por Sars-CoV-2
+
+x > y # Operaciones lógicas con fechas
+x - y # Te dice cuantos días de diferencia hay entre ambas fechas
+
+# Cálculos con zonas horarias
+x <- as.POSIXct("2015-09-22 01:00:00", tz = "Europe/Madrid")
+y <- as.POSIXct("2015-09-22 01:00:00", tz = "America/Caracas")
+
+y == x # Operaciones lógicas con zonas horarias
+y - x # Te dice cuantos horas de diferencia hay entre ambas zonas
+```
+
+Si no conoces cuales son las zonas horarias, no hay problema. R provee una función que te muestra todas las zonas horarias: `OlsonNames()`.
+
+**Pon en práctica lo que aprendiste.** 
+
+1. Crea un objeto de clase `Date` que contenga tu fecha de nacimiento.
+2. Calcula cuantos días y tiempo falta para tu próximo cumpleaños.
+
+### Otros valores especiales.
+
+R tiene algunos valores especiales que deben tratarse con cuidado. Algunos de ellos ya han aparecido: 
+
+* Valores faltantes (`NA` o *Not Available*): aparecen a menudo cuando se importan datos en los cuales no se han registrado algunas observaciones. Puedes verificar que el valor almacenado en una variable es un `NA` usando la función `is.na()`.
+* Valores no numéricos (`NaN` o *Not a Number*): aparecen cuando se tratan de realizar operaciones que arrojan resultados indefinidos. Ya vimos un ejemplo con la raíz cuadrada de un número negativo. Otro ejemplo ocurre cuando tratas de realizar la operación `0/0`. 
+* Infinitos (`Inf` o *Infinite*): aparece cuando se tratan de realizar operaciones cuyo resultado es un valor muy grande. Por ejemplo, aparece cuando tratas de hacer la operación `1/0`. También se pueden obtener infinitos negativos cuando hay negativos involucrados en la operación (p. ej. `-1*Inf`).
+
+## Organizandote: *Scripts*.
+
+A medida que escribas programas cada vez más complejos y grandes, va a ser necesario que lleves registro y los puedas almacenar en una forma que sea accesible y fácil de modificar. Para esto, es necesario que crees *scripts*: archivos de textos que contienen los comandos de tu programa organizados de forma secuencial y ordenada. Los *scripts* son archivos de textos y es por eso que solo necesitas un editor de texto para crearlos (p. ej. puedes hacerlos con el bloc de notas). Lo importante es que como estas creando programas de R, los *scripts* deben terminar con la extensión .R (los archivos de bloc de notas tienen extensión .txt por omisión. Tu puedes cambiar la extensión presionando el botón derecho del ratón sobre el archivo y seleccionando "Cambiar nombre". Cambias la extensión a .R y presionas "Aceptar").
+
+Un ejemplo de un programa sencillo es el que se muestra a continuación. Puedes copiar y pegar^[Esto solo por esta vez lo haremos. En general, copiar y pegar código es una mala practica de programación y no debe hacerse, debido a que hay mucha propensión a propagar errores, es más difícil de mantener y modificar si cambias algo en un fracción del código que copiaste y que debes modificar en todas las copias del mismo, y entre otras razones.] el código en un editor de texto y guardarlo como `Suma.R`:
+
+```r
+# Suma.R - Este programa se encarga de sumar dos números predefinidos aquí.
+
+# Números a sumar
+first <- 16
+second <- 32
+
+# Sumando
+suma <- first + second
+suma
+```
+
+En general, los programas que escribirás en *scripts* serán mucho mas grandes y complejos. Pero usaremos el programa `Suma.R` para ejemplificar ciertos aspectos del flujo de trabajo al programar en R. Todo lo mencionado en esta sección tiene que ver con el estilo y las convenciones utilizadas por los programadores de R para escribir *scripts* de forma elegante y que sea fácil de leer para otros programadores.
+
+* Primero que nada, los nombres de los *scripts*, al igual que los nombres de variables y funciones, deben ser significativos o representativos. Estos deben dar una idea de a que esta dirigido el programa y no tener nombres aleatorios o que signifiquen algo trivial (de nuevo, nada del nombre de tu *crush* o de tu comida favorita). 
+* Tal vez no lo notaste, pero hemos estado usando con bastante frecuencia el símbolo `#`. Este símbolo indica que lo que sigue después del mismo hasta el fin de línea^[Un fin de línea (o `\n` es un salto de linea. Cada vez que presionas *Enter* cuando escribes un texto en la PC, introduces un fin de línea.] es un comentario. Los comentarios R los interpreta como partes del *script* que no se ejecutan. Son solo lineas de texto que están ahí para explicar para que sirve una parte del código o para mostrar información acerca del programa (un mal hábito que se suele adherir a nosotros debido a la inseguridad o necedad es el de comentar código que ya no usaremos o código que ya no se ejecuta debido a modificaciones posteriores. Trata de no hacer esto).
+* En mi caso, cuando sé de antemano que el programa será leído por otras personas, añado también la fecha y mi dirección de correo electrónico (básicamente lo que hago es dándole un autor al programa).
+
+```r
+        # molinatti.marc.029@gmail.com
+        # Enero 7, 2021.
+```
+
+* Facilitar la legibilidad de un programa es importante, porque puede suceder que tu tengas que leer tus propios programas luego de que ha transcurrido mucho tiempo de haberlos escrito. Si el programa esta todo amontonado y sin un buen espaciado, será una tortura hacerlo (y si tu programa va dirigido a otras persona, esas personas te van a odiar y maldecirán por haberles dado un programa tan basura). Es por eso que existen ciertas convenciones cuando se trata de estilo: *i)* Los operados van separados de sus operandos por medio de un solo espacio, excepto si se trata de los operadores `:`, `::` o `:::`; y *ii)* cuando una línea de código es muy larga (más de 80 caracteres) utiliza saltos de lineas y tabuladores^[Personalmente, los tabuladores no me gustan porque el espaciado por omisión es demasiado grande. Yo utilizo dos espacios en blanco como tabulador. Aunque también puedes modificar tu editor de texto para que el tamaño de la tabulación sea de dos espacios en blanco y no de 6 u 8.].
+
+```r
+        # Una operación matemática correctamente espaciada...
+        1 + 32 / (6 * 4) 
+        # ...y una no tan bien espaciada. Ew!
+        55*sin(pi/4)+10
+
+        # Usa saltos de línea y tabulaciones para mejorar la lectura del código.
+        y <- as.POSIXct("2015-09-22 01:00:00", 
+          tz = "America/Caracas")
+```
+
+## Necesitas ayuda: R te ayuda!
+
+R es un lenguaje de programación que esta demasiado bien documentado y que crece y mejora cada vez más gracias a la comunidad. Puedes acceder a la ayuda de R cuando lo desees. En esta se incluye información sobre los paquetes instalados y, por lo tanto, de las funciones que se encuentran en el entorno de R. 
+
+Desde la consola, acceder a la ayuda de R es tan sencillo como usar la función `help`, o su sinónimo, `?`. Por ejemplo, si quieres ayuda acerca de una función particular, digamos `substr`, puedes acceder a la documentación para esa función usando `help("substr")` o `?substr`. Si no conoces el nombre de la función puedes usar alguna palabra clave con la función `help.search`. Esta se encargará de mostrarte todas las funciones con la cadena que le pases como argumento (lo que entre paréntesis) en su nombre.
+
+Otras funciones útiles que son de ayuda, son las siguientes:
+* `apropos`: regresa una lista de todos los objetos (incluyendo nombres de variables y funciones) en la sesión actual que corresponden con la cadena de caracteres que pases como argumento.
+* `example`: muestra ejemplos de como usar una función.
+* `vignette`: da información más detallada acerca de una librería o paquete. No todos los paquetes tienen viñetas, pero las que lo tienen proveen una gran ayuda para comenzar a utilizar el paquete y entrenarte. 
+
+**Pon en práctica lo que aprendiste.** 
+
+1. Utiliza las funciones de ayuda de R para revisar la documentación de la función `strsplit` y utilízala para romper la cadena de caracteres `"Why?all?those?interrogation?symbols, eh?"` en cada aparición de un signo de interrogación. 
+2. Utiliza la ayuda de R para investigar sobre la precedencia de operadores (*Pista*: Utiliza *precedence* como palabra clave).

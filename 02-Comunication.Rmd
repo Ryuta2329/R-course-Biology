@@ -1,0 +1,308 @@
+# Comunicando Resultados y Tomando notas.
+
+Una parte importante del procesos de análisis de datos es la comunicación. Saber programar no es suficiente! Tienes que tener la capacidad de comunicar tus resultados en una forma que sea clara y apetecible para quienes esta dirigido.  En este capitulo, la idea es aprender acerca de las tecnologías que ofrece R para este propósito, 
+
+## Instalando paquetes en R.
+
+Las librerías en R son paquetes que contienen funciones que sirven para llevar a cabos tareas específicas, y algunos tienen datos que se pueden usar para llevar a cabo los ejemplos de las funciones incluidas en el paquete (esto se cargan en R usando el comando `data`). Cuando inicias una sesión de R, algunos paquetes se cargan por omisión, de forma que sus funciones estén disponibles para su uso en la sesión actual. Puedes saber que paquetes se cargan por omisión usando `getOption("defaultPackages")`.
+
+Es casi imposible que no utilices otros paquetes más allá de los paquetes por omisión cuando estés realizando algún trabajo en R. Es bueno siempre llevar un registro de los paquetes que utilizas durante una sesión de R (una de las máximas de la *programación literaria*). Para poder ver que paquetes están cargados en la sesión actual puedes utilizar: `print(.packages())`. Este comando muestra todos los paquetes cargados en la sesión actual.
+
+Ahora, para poder cargar y usar los paquetes, estos deben estar disponibles en tu computadora para la sesión de R. Instalar paquetes en R es muy sencillo: ellos se pueden descargar e instalar desde un repositorio. Se utiliza la función `install.packages` para instalar un paquete desde el CRAN (necesitas tener conexión a Internet para poder instalar los paquetes). Puedes saber donde los paquetes son instalados utilizando `.libPaths()`, que te muestra la dirección del directorio en tu PC o laptop donde se encuentran instalados los paquetes. 
+
+Si no puedes tener acceso a Internet en tu computadora personal o laptop, puedes instalar los paquetes desde una dirección local en tu computadora. Para esto, debes descargar los paquetes directamente desde el CRAN (archivos comprimidos con extensión .tar.gz) desde una computadora o laptop con conexión a Internet. Luego almacenarlos en un directorio conocido en tu computadora e instalar el paquete usando^[Ve la documentación para `intsall.packages` para más información. En Linux, la instalación de paquetes se puede llevar a cabo directamente desde la terminal sin necesidad de iniciar una sesión en R escribiendo el comando `R CMD INSTALL ruta/donde/colocaste/paquete.tar.gz`.]:
+
+```{r install_from_local, eval = F}
+    install.packages("ruta/donde/colocaste/paquete.tar.gz", 
+      repos = NULL,
+      type = "source")
+```
+
+Una vez un paquete esta instalado puedes utilizar la función `library` para cargar el paquete. Por ejemplo, más adelante utilizaremos el paquete `readxl` que contiene funciones para leer y escribir archivos de Excel desde R (existen otros paquetes con estas funcionalidades, pero `readxl` tiene la ventaja de que los datos son cargados en forma de una estructura de datos llamada `tibble`, la cual es particularmente útil para trabajar en el *tidyverso*^[En ciencias de Datos (*Data Science*) con R, el `tidyverse` consiste de un conjunto de paquetes especializados para el análisis exploratorio e inferencia estadística.]). Es posible instalar este paquete utilizando `intsall.packages("readxl")` (las comillas son obligatorias)^[Puede suceder que la instalación falle si la librería depende de otros paquetes para poder instalarse. Un paquete del cual depende una librería se llama dependencia. En ese caso, coloca el argumento `dependencies = TRUE` en la llamada a la función. Esto descargara e instalara todas los paquetes de los que depende la librería que quieres instalar y luego instalará el paquete deseado.] y una vez instalado, cargarlo en la sesión actual usando `library("readxl")`.
+
+R siempre esta mejorando! Como consecuencia, de tanto en tanto tendras que actualizar la version que tienes a una version mas reciente, o actualizar los paquetes de forma que puedas seguir usandolos. Para poder mantenerte al dia, siempre puedes verificar que paqutes no estan actualizados utilizando la funcion `old.packages()`, y puedes actualizarlos usando la funcion `update.packages`. Si el paquete ya lo has cargado previamente a la sesion de R usando `library`, tienes removerlo de la sesion actual par luego actualizarlo. Para ello puedes usar:
+
+
+```{r, eval = FALSE}
+    detach("package:nombre_del_paquete", unload = TRUE)
+```
+
+o puedes utilizar la funcion `unloadNamespace` como:
+
+```{r, eval = FALSE}
+    unloadNamespace("nombre_del_paquete")
+```
+
+En ambos casos las comillas son obligatorias, y el uso de `detach` requiere de forma obligatoria el uso de `paquete:` antes del nombre del paquete. De hecho, `unloadNamespace` es llamado de forma implicita cuando se usa el argumento `unload = TRUE` en la llamada a `detach`. Un _namespace_, o *espacio nombrado* no es mas que un espacio en el cual residen objetos (ya sean datos o funciones) que pertenecen a un entorno particular, con nombres unicos que los definen.
+
+En cuanto a R, este se puede actualizar a su version mas reciente, pero es dependiente del sistema. La forma mas sencilla segun el FAQ es simplemente desinstalar la version actual de R, y luego instalar la nueva (previamente descargada). Sin embargo, en Windows, es posible utilizar el paquete `installr` para actualizar R desde dentro de R. En sistema Linux, se puede hacer via terminal por medio del uso de `apt-get`.
+
+### Representación de objetos y el uso de comillas.
+
+Antes, aprendiste sobre el proceso de declarar una variable en R. Aunque lo comparamos con la operación matemática de asignar datos a una variable, declarar una variable o un objeto en R es distinto del significado matemático de asignación. Cuando se declara un variable lo que se esta haciendo es crear un nuevo objeto en R que representa al dato que esta almacenando. El nombre del objeto sirve como *una referencia (o apuntador) a una dirección de memoria en el disco duro en la que se almacena la información que se le esta asignando al objeto*. Esto es importante que lo entiendas: la distinción entre lo que es el objeto y la información o datos. 
+
+Un caso donde esto puede causar problemas es en la llamada a funciones. Ya hemos hablado acerca de las cadenas de caracteres: son una secuencia de palabras o símbolos encerrados por comillas simples o dobles. En la llamada a la función `install.packages` dijimos que las comillas son obligatorias, de tal forma que la función entiende que lo que le pasas es una cadena de caracteres que especifica el nombre del paquete que quieres cargar. Ahora, ¿Qué sucedería si olvidas colocar las comillas? (¡no te quedes aquí! Ve a la consola a probar). Bueno, de entrada, R te dirá que ocurrió un error, o puede que no, dependiendo de si el objeto que pasas existe y almacena una cadena de caracteres. 
+
+Cuando le pasas un objeto a una función (no usas las comillas), R busca un objeto entre los que están presentes en la sesión actual (puedes saber que objetos están en la sesión actual usando `ls()`) y le pasa a la función el contenido o información que ese objeto esta almacenando. Por ejemplo, supongamos que existe en tu sesión actual un objeto llamado `my_obj` el cual tiene almacenado la cadena de caracteres `"Radical"`. Cuando haces un llamado a `install.packages` usando el nombre del objeto (es decir, `install.packages(my_obj)`), lo que en realidad sucede es que estas llamando a la función con la cadena de caracteres almacenada en ese objeto. Es decir, la llamada anterior R la interpreta como `install.packages("Radical")`. Es importante que entiendas la forma en que funciona el paso de argumentos porque puede generar errores inesperados. 
+      
+**Pon en práctica lo que aprendiste.**  
+
+1. Para la siguiente parte necesitaras instalar el paquete `rmarkdown`. Instálalo usando lo aprendido en esta sección.
+2. Carga el paquete `car` en la sesión de R y luego la base de datos `mtcars` usando la función `data`. Revisa la base de datos llamándola en consola (`mtcars` es una base de datos que generalmente es utilizada por los principiantes para aprender a programar en R).
+
+## Investigación reproducible: R Markdown!.
+
+Anteriormente hablamos sobre los aspectos del flujo de trabajo durante la creación de *scripts*. R es un lenguaje que facilita mucho la documentación: durante la realización de los programas se pueden dejar comentarios que van explicando paso a paso los acciones realizadas durante el análisis. Esta forma de documentar no solo se refiere a generar código para llevar a cabo un análisis, sino también el registro del porque de las acciones tomadas (p. ej. porque se escogió un modelo estadístico por sobre otro), registro de errores realizados para referencias futuras, notas personales, y otras piezas de información que sirvan a cualquiera que lea tú código para reproducir tus mismos resultados a partir de los datos obtenidos [@Foster].
+
+Ciertamente, el proceso de investigación involucra diferentes partes. Sin embargo, la investigación reproducible hace referencia a la parte de la investigación que comienza cuando ya se tienen los datos crudos (o *raw data*. Estos son datos no depurados, es decir, que no se han procesado de ninguna manera), y que continua con el análisis, culminando en la generación de resultados. Otras personas deben ser capaces de utilizar tu código y los datos crudos y generar tus mismos resultados. Esta requiere del establecimiento de flujos de trabajo que sean comunes entre los investigadores y analistas, e implica la adopción de un sistema de documentación que ayude a la transparencia y claridad de la investigación y del proceso de análisis.
+
+En este sentido, los *scripts* no ofrecen un buen medio de comunicación, ni un buena infraestructura para la investigación reproducible. Simplemente, ¡hay cosas que no puedes colocar en un *script*! Por ejemplo, llamadas a instalar paquetes o direcciones de disco duro que solo funcionan en tu computadora. La información relacionada a el lugar donde se encuentran los datos, donde se generan las salidas (como imágenes y archivos PDF), los paquetes necesarios, entre otras cosas, deben de ser conocidas por el analista previo a la realización del análisis.
+
+```{r R Markdown Logo, fig.pos = '!h', echo = FALSE, out.width='70%', fig.align='center'}
+knitr::include_graphics( here::here("figs", "rmarkdown-image1.png"))
+```
+
+Con este fin, es que *R Markdown* aparece en escena. Es una forma de hacer seguimiento y llevar registro de todas las cosas que no es posible colocar en un *script*. Este último contiene el código de análisis, pero los aspectos del flujo de trabajo (direcciones, paquetes, el editor que usas, etc.) vienen especificados de acuerdo las practicas de programación y en documentos de texto estructurados. De esta forma se hace seguimiento, integrando el código con tu propia narrativa de acerca de lo que se esta haciendo (esto es lo que se llama *programación literaria*).
+
+Los documentos de *R Markdown* se escriben en lenguaje de marcado llamado *Markdown*, el cual provee una forma de estructurar un documento de forma sencilla. Puede usarse para muchos fines (libros, reportes, paginas web, presentaciones, y mucho más). Para una guía completa de *R Markdown*, revisa el libro de @Yihui2018, el cual tiene todo lo que necesitas saber sobre *R Markdown*. También recomiendo el *R Markdown Cookbook* del mismo autor [@Yihui2020] que puede servir como una referencia rápida. 
+
+## R Markdown: Estructura y Ejecución.
+
+En esta sección no pretendo mostrarte todas las funcionalidades de *R Markdown* (para eso puedes consultar las referencias antes citadas que tienen más de lo que quisieras saber al respecto, y siempre puedes consultar foros y discusiones en la web para buscar ayuda), sino más bien dar una introducción breve a la tecnología de forma que puedas comenzar a realizar tus propios documentos sencillos en nada de tiempo. 
+
+### Instalando R Markdown.
+
+Instalar *R Markdown* es tan sencillo como instalar el paquete `rmarkdown` en R. 
+
+```r
+# Instalando rmarkdown desde el repositorio.
+install.packages("rmarkdown")
+```
+
+Para poder generar documentos de *Latex* vas a a necesitar instalar *Latex*^[Puedes encontrar una en [miktex.org](miktex.org). En el caso de Linux, puedes instalarlo desde el repositorio o usar la misma versión de MikTex.]  (Duh!) en tu computadora. Otra forma es instalando el paquete `tinytex` en R y luego usar `tinytex::install_tinytex()`^[De aquí en adelante la notación de los pares de dos puntos aparecerá seguido. El operador `::` es conocido como operador de resolución de ámbito. Cuando se utiliza como `<paquete>::<funcion>()`, lo que se hace es especificar que la función llamada `<funcion>` pertenece al paquete llamado `<paquete>`. Por ejemplo, `tinytex::install_tinytex()` indica que la función `install_tinytex` es una función incluida en el paquete `tinytex`. Sirve para evitar conflictos o ambigüedades a la hora de llamar funciones. Si hay dos funciones llamadas de la misma forma pero en paquetes diferentes, puedes usar el operador `::` y el nombre del paquete para especificar cual de las dos funciones es la que vas a usar.] para instalar una versión ligera de *Latex* en tu computadora (la ventaja es que la instalación y uso de *TinyTex* no requiere de privilegios de administrador). Sea cual sea el tipo de documento que vayas a generar, necesitaras instalado *Pandoc* para poder generar los documentos. Puedes verificar si ya lo tienes instalado desde R usando:
+
+```r
+rmarkdown::find_pandoc()
+```
+
+Si no se encuentra instalado, puedes encontrar instrucciones de como instalarlo en [https://pandoc.org/installing.html](https://pandoc.org/installing.html).
+
+### Anatomía de un documento *R Markdown*.
+
+Para crear documentos de *R Markdown* solo tienes que especificar las tres partes esenciales que conforman el documento: el encabezado YAML, el texto con formato y los *chunks* de código. Un ejemplo de un documento de *R Markdown* muy sencillo y básico es el siguiente:
+
+````
+---
+ title: Mi primer Documento
+ author: Marcelo J. Molinatti S.
+ date: 2021-01-20
+ output: html_document
+---
+
+# Introducción.
+
+Este es mi primer documento de *R Markdown* que muestra algunas de sus 
+funcionalidades básica. Este documento comenzó con una sección llamada 
+**Introducción** y continua con una subsección que muestra el uso de 
+*chunks* de código.
+
+## Usando *chunks* de código.
+
+Puedes utilizar *chunks* de código ya sea dentro de los párrafos que 
+escribes o usando bloques que realicen alguna función. Por ejemplo, el 
+siguiente bloque consiste de una simulación simple de una variable aleatoria 
+continua descrita por una distribución normal (que bien podría ser la 
+distribución de altura de una población) con media $\mu = 14$ y desviación 
+estándar $\sigma = 1.2$:
+
+`r ''````{r Simulacion}
+# Simula 100 datos aleatorios de una distribución normal.
+sim_data <- rnorm(100, mean = 14, sd = 1.2)
+
+# Un pequeño histograma...
+hist(sim_data)
+```
+
+Luego puedes hacer uso de *chunks* en línea (*inline chunks*) usando `. 
+Por ejemplo, la media de los 100 datos simulados en el bloque anterior 
+es `r knitr::inline_expr("mean(sim_data)")`.
+
+Puedes guardar este ejemplo en un archivo con extensión *.rmd* (p. ej. 
+lo puedes llamar *mi_ejemplo.rmd*) y luego crear el documento usando la 
+función `render` del paquete `rmarkdown` como:
+
+rmarkdown::render("mi_ejemplo.rmd", "html_document")
+````
+
+**Encabezado YAML**
+
+Este encabezado contiene lo que se conoce como metadata: información sobre el documento y otras instrucciones que afectan el proceso de generación del documento (también llamado *rendering*). Este se coloca al inicio del documento:
+
+```
+---
+ title: "Yet another course on R!"
+ author: "Marcelo Molinatti"
+ date: 2021-01-19
+ output: html_document
+---
+```
+
+El encabezado comienza y termina con tres guiones (---) que indican el inicio de metadatos YAML (YAML significa *Yet Another Markup Language*), seguido de tres campos que especifican el titulo del documento, el autor, la fecha y el formato de salida. Es importante que notes que cada campo comienza luego de introducido un espacio en blanco. Los formatos de salida pueden ser distintos: por ejemplo, `html_docuemnt` especifica que la salida será un archivo HTML, `pdf_document` especifica que la salida será un PDF, y `word_document` especifica que será un archivo de Word (existen otros formatos posibles. Consulta @Yihui2018). 
+
+También puedes especificar argumentos para la salida de forma que puedas modificar ciertos aspectos del documento generado. Por ejemplo:
+
+```
+output:
+ html_document:
+  toc: true
+  toc_depth: 2
+```
+
+crea un documento HTML con secciones y subsecciones ennumeradas (`toc` especifica que se deben numerar y `toc_depth` especifica cuantos niveles numerar, en este caso, dos niveles). Date cuenta que si pasas argumentos debes indicarlo colocando dos puntos (:) y lo argumentos, si son varios, debes de colocarlos uno después del otro usando saltos de linea. También nota que cada nivel de argumento se especifica con un espacio en blanco (`html_document` es argumento de `output` y por eso tiene un espacio en blanco antes. De igual forma, ambos `toc` y `toc_depth` son argumentos de `html_document` y por ello se coloca otro espacio en blanco antes de estos).
+
+**Texto con formato**
+
+En esta parte va el contenido de tu documento. Tiene funcionalidades especiales que permiten agregarle formato, de forma que la presentación sea la que tu quieres. Por ejemplo, en el ejemplo, usamos encabezados que permiten definir secciones y subsecciones utilizando los numerales `#`. Un numeral indica un nivel o una sección del documento, y dos numerales (`##`) indican una subsección o segundo nivel (este es un nivel que se anida en el nivel externo. Por eso lo llamamos subsección también). Usar tres numerales implica una sub-subsección.
+
+```{r Formated-Text, fig.pos = '!h', echo = FALSE, out.width='70%', fig.align='center', fig.cap = 'Opciones de formato de texto (izquierda) con su resultado luego de *renderizado* (derecha). Tomado de <http://uc-r.github.io/r_markdown>'}
+knitr::include_graphics(here::here("figs", "markdown_text.png"))
+```
+
+Además, puedes enfatizar palabras (o *îtalizar*), encerrando la palabra o frase entre `*` (o `_`). Si utilizas dos `*` (o `_`) entonces la palabra o palabras son resaltadas en negritas (llamada *boldface*). Puedes encerrar texto que se entiende como código entre `` ` ``. En el ejemplo anterior, las palabras `render` y `rmarkdown` quiero que se entiendan como código y por eso les dí ese formato. 
+
+También es posible realizar lista ordenadas (enumeradas) o no. En el caso de listas no numeradas, se pueden construir usando la  notación de `*`. Para las listas enumeradas, se utilizan números para odenar los *items*. Pro ejemplo:
+
+```
+Esta es una lista no numerada:
+
+* Este es el primer *item* de la lista.
+* Este es el segundo *item*, el cual tine eotra lista no numerada anidada.
+    * Este es el primer item de la sublista, anidada en el segundo *item*.
+    * Este es el segundo *item* de la sublista.
+* Otro *item* de la lista más externa.
+
+Este es un ejemplo de una lista numerada u ordenada:
+
+1. El primer *item* enumerado.
+1. El segundo *item* numerado. Los número se incrementan automáticamente de forma que no
+te tienes que preocupar por la numeración de cada uno de los *items*.
+```
+
+Las listas pueden anidarse como se ve en el ejemplo anterior, simplemente utilizando una identación adecuada. Además, se pueden mezclar los tipos de lista, de forma que puedes crear listas numeradas con sublistas no numeradas, y viceversa. 
+
+Muchas otras opciones están disponibles y puedes consultarlas en @Yihui2018. En la figura \@ref(fig:Formated-Text) se muestran algunas opciones junto con la salida luego de *renderizado* el documento.
+
+**_Chunks_ de código**
+
+La última característica de un archivo *R markdown* y la más importante a la hora de generar reportes es la capacidad de añadir fragmentos de código R que se ejecuta. Estos fragmentos pueden resultar en salidas (o *outputs*, como imágenes, tablas, datos, etc.) que se imprimen y se muestran en el documento generado por la función `render` al compilar el documento. 
+
+Para colocar un fragmento de código, colocas `{r }` encerrado entre tres `` ` `` como se muestra en el fragmento que usamos de ejemplo. Luego, colocas el código de R seguido de la última llave (lo cual puede ser el cargado de los datos y paquetes, la manipulación de los datos, análisis estadísticos, entre otras muchas cosas más). Puedes colocar más de un fragmento de código en un documento y cada fragmento nombrarlo usando una etiqueta: para ello, solo coloca un nombre apropiado seguido de la `r`, dentro de las llaves (p. ej. `{r Simulacion}` denota un fragmento de código llamado `Simulacion`. Date cuenta que, como hemos aprendido hasta ahora, la etiqueta debe ser una descripción significativa del fragmento de código). También, los fragmentos de código reciben argumentos: luego de la etiqueta o nombre, se coloca una coma seguido de los argumentos. Algunos argumentos importantes son:
+
+* `echo` es un valor lógico que si es `TRUE`, permite que se imprima el fragmento de código. De lo contrario, el fragmento de código es evaluado (y cualquier resultado aparecera en el reporte final) pero el código no se mostrará en el documento. 
+* `eval` es un valor lógico que si es `TRUE`, el fragmento de código se ejecuta, de lo contrario, el fragmento de código no se ejecuta (y por lo tanto no hay resultados generados por ese fragmento).
+* `include` es un valor lógico que de ser `FALSE`, permite que el código se ejecute, sin incluir el código y los resultados en el documento final.
+* `message` y `warning` son también valores lógicos que permiten decidir si se quiere que aparezcan mensajes y advertencias en el documento final. 
+* `results = 'hide'` y `fig.show = 'hide'` es una forma conveniente de hacer que que no se muestren las salidas y gráficos, respectivamente.
+
+Otra funcionalidad de los fragmentos de código es que puedes usar _inline chunks_ (o fragmentos en línea) dentro del texto o contenido. Para ello solo usas `r` encerrada entre `` ` `` (como en `` `r knitr::inline_expr("mean(sim_data)")` `` en el ejemplo). Estos fragmentos sirven para colocar información almacenada en objetos de R, en el contenido del documento (no es tan adecuado para escribir grandes fragmentos de código. En esos casos, es mejor usar un _chunk_ completo).
+
+### Imágenes y tablas.
+
+Otra parte importante es la capacidad de añadir imágenes y tablas a documentos generados por *R Markdown*. Para añadir imágenes puedes utilizar el comando:
+
+```
+    ![Leyenda opcional para la figura](ruta/a/img.png)
+```
+
+Una mejor manera de añadir imágenes a un documento es por medio de la función `knitr::include_graphics`^[Recuerda que `::` es el operador de resolución de ámbito. Por lo tanto, `include_graphics` es una función incluida en el paquete `knitr`, y por lo tanto, este debe estar instalado.] incluida en el paquete `knitr`. 
+
+````
+`r ''````{r my-figure, echo = FALSE, out.width='70%', fig.align='center'}
+knitr::include_graphics("ruta/a/img.png")
+```
+````
+
+La utilidad de esta forma de incluir imágenes es que facilita la personalización por medio de las opciones en los *chunks* de código. Se pueden utilizar opciones como `width`, `height`, `fig.align`, `fig.cap`, y/o `out.width` para especificar el tamaño de la imagen, la alineación, la leyenda de la figura o el tamaño relativo a la amplitud del texto. El poder incluir imágenes a partir de fragmentos de código es lo que permite añadir gráficos generados en R a un documento. En el ejemplo que usamos de base, luego de *renderizado* el documento vas a a ver un histograma de los datos simulados. Este histograma es generado con la función `hist` en R, y por lo tanto se imprime en el documento final y, al igual que antes, se puede personalizar su presentación con las opciones del *chunk* de código.
+
+En cuanto a las tablas, la forma más sencilla de generar tablas de datos con un formato personalizado que sea visualmente agradable es utilizando funcione de formato de tablas como `knitr::kable()`. Por ejemplo, ya dijimos que un conjunto de datos que sirve mucho para aprender a realizar análisis estadísticos en R es `mtcars`. Un ejemplo de uso de la función de formato de tablas es:
+
+````
+`r ''````{r my-table}
+    knitr::kable(
+        mtcars[1:5, ],
+        caption = "A knitr kable."
+    )
+```
+````
+
+Date un tiempo para leer los argumentos de la función `kable` de forma que puedas personalizar aun más las tablas que se generan en tus documentos (¿Recuerdas como se lee la documentación de una función?). Otro paquete importante que permite añadir otras características a las tablas es el paquete `kableExtra` el cual permite estilizar y crear tablas más complejas si así se requiere. Otros paquetes que permiten imprimir tablas más personalizadas son paquetes como `xtable`, `stargazer`, `pander`, `tables`, y `ascii`.
+
+### Bibliografía y referencias.
+
+Es posible generar de forma automática citas y bibliografías en el documento final. Lo único que se tiene que hacer es especificar un archivo de bibliografía usando el campo `bibliography` en el encabezado YAML. El campo debe especificar la dirección o ruta de acceso del archivo que contiene la bibliografía, y la bibliografía puede estar en formato BibLaTeX, BibTeX, *endnote* y *mnedline*. Una forma de automatizar el proceso de creación de una bibliografía es utilizando un manejador de biblioteca (como por ejemplo [Mendeley Desktop](www.mendeley.com)) de forma que cree el archivo bibliográfico y tu solo tienes que hacer referencia a la dirección de la misma para incluirla en el documento.
+
+Para citar algún autor en tu archivo *.Rmd* se utiliza una clave compuesta por el símbolo `@` seguido de un identificador de alguna referencia en el archivo bibliográfico (por ejemplo, `@marcelo2020`). Si colocas la cita encerrada entre corchetes, entonces la cita es colocada entre paréntesis. Si quieres colocar más de una cita, cada una debe ir separada de la otra por un `;` (como en `[@marcelo2020; @rodriguez2010]`). También puedes añadir comentarios arbitrarios (como cuando se busca hacer referencia a una pagina específica dentro de un trabajo, como en `[véase @marcelo2020, pp. 33-35]`). Si quieres colocar una cita en el texto (como en _... Según Molinatti (2020), ..._) entonces se omiten los corchetes, y si quieres que solo se imprima la fecha de la publicación a la que haces referencia, pero no el autor, se coloca un `-` antes del inicio de la cita (como en `[-@marcelo2020]`).
+
+Al *renderizar* el documento, se construye la bibliografía y se añade al final del documento de forma automática, la cual contendrá cada una de las citas referenciadas dentro del documento. Sin embargo, no se genera una encabezado de forma automática, por lo que es costumbre añadir en un documento un último encabezado o sección para la bibliografía:
+
+```
+# Bibliografía.
+```
+
+También puedes cambiar el estilo de las referencias (p. ej., si quieres usar las normas APA, puedes usar un documento de estilo que genere las referencias siguiendo estas normas) al hacer uso de un archivo *CSL* (*citation style language*) en el campo `csl`del encabezado YAML. 
+
+```
+bibliography: bibliografia.bib
+csl: apa.csl
+```
+
+El campo `csl` debe contener la dirección al archivo con extensión _.csl_ (puedes encontrar estilos bibliográficos en <http://github.com/citation-style-language/styles>). en el ejemplo anterior, se asume que ambos, bibliografía y estilo (`bibliografia.bib` y `apa.csl`, respectivamente) están en el mismo directorio que tu archivo _.Rmd_.  
+
+
+
+Una vez que se tiene un archivo _.Rmd_ puedes proceder a realizar el *renderizado* para obtener tu documento. Lo se hace es que una vez finalizado, utilizas la función `rmarkdown::render` (en el archivo que nos sirve de ejemplo, se utiliza en la consola como `rmarkdown::render("mi_ejemplo.rmd", "html_document")`, de forma que se obtiene el resultado en forma de un archivo HTML), la cual se encarga de pasar el archivo a `knitr`, el cual se encarga de ejecutar todos los fragmentos de código (estos se ejecutan primero antes del compilado del documento, lo cual se puede aprovechar para colocar fragmentos de código incluso en el encabezado YAML) y crea un documento _markdown_ (extensión *.md*). Luego Pandoc se encarga de procesar este archivo para generar el documento deseado, ya sea en HTML, PDF, o un documento de Word, presentaciones, entre otros.
+
+```{r Rendering, fig.pos = '!h', echo = FALSE, out.width='100%', fig.align='center'}
+knitr::include_graphics( here::here("figs", "RMarkdownFlow.png") )
+```
+
+Listo. Ya puedes comenzar a llevar a cabo reportes, informes, presentaciones y otros documentos que te interesen. En la bibliografía puedes encontrar mucha más información, de forma que seas capaz de explotar todas las funcionalidades que ofrece _RMarkdown_.
+
+## Notas finales sobre la investigacion reproducible.
+
+<!---
+
+```
+Research is considered to be reproducible when the exact results can be reproduced if given access to the original data, software, or code. Reproducible research is sometimes known as reproducibility, reproducible statistical analysis, reproducible data analysis, reproducible reporting, and literate programming.
+
+Actual results themselves, which includes:
+Tables
+Visualizations/figures/graphs
+Values reported in the text
+The statistical evidence in support of the findings (e.g., p-values, confidence intervals, credible intervals).
+
+In practice, when organizations (e.g., publishers of journals) require that research be demonstrated to be reproducible, they will make some or all of the following additional requirements:
+
+A set of files is provided containing the data and code, and it is possible to create the tables and any data-derived charts/graphics/visualizations by running the code.
+Details about the system being used to run the analysis: operating system, patches, random number seeds, specific versions of all software/packages/libraries are listed.
+The code is written in a way that can be readily understood.
+Open/transparent. All the data and materials are available (as opposed to "available upon request") -- e.g., posted on GitHub, or in an international data repository.
+That is, either:
+Another party (e.g., a reviewer) has successfully reproduced the results and certified them as such.
+Logs demonstrate that key results were successfully created from the inputs.
+The key results are linked to the data and code, so the relationship can be directly inspected.
+A final requirement, which is sometimes known as literate programming, is that:
+
+The entire report is written using code. That is, a file or files are provided which, when run, import the data, produce all the results, insert the results into the text of the report, and format the report.
+
+
+Reproducibility has the following benefits:
+
+increased likelihood that the research will be correct
+reproducibility makes it easier to check the research
+it is easier to reproduce the research independently
+easier to extend the research
+reusable code and instruction resulting in increased efficiencies
+
+```
+--->

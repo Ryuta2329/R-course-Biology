@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1.4 Tipos de datos y su manejo. | R-Biologos.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1.4 Tipos de datos y su manejo. | R-Biologos.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1.4 Tipos de datos y su manejo. | R-Biologos.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="asignación-de-variables..html"/>
+<link rel="next" href="organizandote-scripts..html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="1" data-path="empezando-comandos-básicos..html"><a href="empezando-comandos-básicos..html"><i class="fa fa-check"></i><b>1</b> Empezando: Comandos Básicos.</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="el-entorno-de-trabajo..html"><a href="el-entorno-de-trabajo..html"><i class="fa fa-check"></i><b>1.1</b> El entorno de trabajo.</a></li>
+<li class="chapter" data-level="1.2" data-path="usando-la-consola-operaciones-matemáticas-en-r..html"><a href="usando-la-consola-operaciones-matemáticas-en-r..html"><i class="fa fa-check"></i><b>1.2</b> Usando la consola: operaciones matemáticas en R.</a></li>
+<li class="chapter" data-level="1.3" data-path="asignación-de-variables..html"><a href="asignación-de-variables..html"><i class="fa fa-check"></i><b>1.3</b> Asignación de variables.</a></li>
+<li class="chapter" data-level="1.4" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html"><i class="fa fa-check"></i><b>1.4</b> Tipos de datos y su manejo.</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#datos-numéricos."><i class="fa fa-check"></i><b>1.4.1</b> Datos numéricos.</a></li>
+<li class="chapter" data-level="1.4.2" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#caracteres."><i class="fa fa-check"></i><b>1.4.2</b> Caracteres.</a></li>
+<li class="chapter" data-level="1.4.3" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#valores-lógicos."><i class="fa fa-check"></i><b>1.4.3</b> Valores lógicos.</a></li>
+<li class="chapter" data-level="1.4.4" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#fechas-y-tiempo."><i class="fa fa-check"></i><b>1.4.4</b> Fechas y tiempo.</a></li>
+<li class="chapter" data-level="1.4.5" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#otros-valores-especiales."><i class="fa fa-check"></i><b>1.4.5</b> Otros valores especiales.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="organizandote-scripts..html"><a href="organizandote-scripts..html"><i class="fa fa-check"></i><b>1.5</b> Organizandote: <em>Scripts</em>.</a></li>
+<li class="chapter" data-level="1.6" data-path="necesitas-ayuda-r-te-ayuda.html"><a href="necesitas-ayuda-r-te-ayuda.html"><i class="fa fa-check"></i><b>1.6</b> Necesitas ayuda: R te ayuda!</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="comunicando-resultados-y-tomando-notas..html"><a href="comunicando-resultados-y-tomando-notas..html"><i class="fa fa-check"></i><b>2</b> Comunicando Resultados y Tomando notas.</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="instalando-paquetes-en-r..html"><a href="instalando-paquetes-en-r..html"><i class="fa fa-check"></i><b>2.1</b> Instalando paquetes en R.</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="instalando-paquetes-en-r..html"><a href="instalando-paquetes-en-r..html#representación-de-objetos-y-el-uso-de-comillas."><i class="fa fa-check"></i><b>2.1.1</b> Representación de objetos y el uso de comillas.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="investigación-reproducible-r-markdown..html"><a href="investigación-reproducible-r-markdown..html"><i class="fa fa-check"></i><b>2.2</b> Investigación reproducible: R Markdown!.</a></li>
+<li class="chapter" data-level="2.3" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html"><i class="fa fa-check"></i><b>2.3</b> R Markdown: Estructura y Ejecución.</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#instalando-r-markdown."><i class="fa fa-check"></i><b>2.3.1</b> Instalando R Markdown.</a></li>
+<li class="chapter" data-level="2.3.2" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#anatomía-de-un-documento-r-markdown."><i class="fa fa-check"></i><b>2.3.2</b> Anatomía de un documento <em>R Markdown</em>.</a></li>
+<li class="chapter" data-level="2.3.3" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#imágenes-y-tablas."><i class="fa fa-check"></i><b>2.3.3</b> Imágenes y tablas.</a></li>
+<li class="chapter" data-level="2.3.4" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#bibliografía-y-referencias."><i class="fa fa-check"></i><b>2.3.4</b> Bibliografía y referencias.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="notas-finales-sobre-la-investigacion-reproducible..html"><a href="notas-finales-sobre-la-investigacion-reproducible..html"><i class="fa fa-check"></i><b>2.4</b> Notas finales sobre la investigacion reproducible.</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="estructuras-de-datos..html"><a href="estructuras-de-datos..html"><i class="fa fa-check"></i><b>3</b> Estructuras de Datos.</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="vectores.html"><a href="vectores.html"><i class="fa fa-check"></i><b>3.1</b> Vectores</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="vectores.html"><a href="vectores.html#operaciones-sobre-vectores."><i class="fa fa-check"></i><b>3.1.1</b> Operaciones sobre vectores.</a></li>
+<li class="chapter" data-level="3.1.2" data-path="vectores.html"><a href="vectores.html#vectorización-y-funciones."><i class="fa fa-check"></i><b>3.1.2</b> Vectorización y funciones.</a></li>
+<li class="chapter" data-level="3.1.3" data-path="vectores.html"><a href="vectores.html#indexado-usando-expresiones-lógicas."><i class="fa fa-check"></i><b>3.1.3</b> Indexado usando expresiones lógicas.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="marices-y-arreglos..html"><a href="marices-y-arreglos..html"><i class="fa fa-check"></i><b>3.2</b> Marices y arreglos.</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="marices-y-arreglos..html"><a href="marices-y-arreglos..html#matrices."><i class="fa fa-check"></i><b>3.2.1</b> Matrices.</a></li>
+<li class="chapter" data-level="3.2.2" data-path="marices-y-arreglos..html"><a href="marices-y-arreglos..html#arreglos."><i class="fa fa-check"></i><b>3.2.2</b> Arreglos.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="factores.html"><a href="factores.html"><i class="fa fa-check"></i><b>3.3</b> Factores</a></li>
+<li class="chapter" data-level="3.4" data-path="tablas-de-datos-data-frames..html"><a href="tablas-de-datos-data-frames..html"><i class="fa fa-check"></i><b>3.4</b> Tablas de Datos (<em>data frames</em>).</a></li>
+<li class="chapter" data-level="3.5" data-path="listas..html"><a href="listas..html"><i class="fa fa-check"></i><b>3.5</b> Listas.</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tipos-de-datos-y-su-manejo." class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Tipos de datos y su manejo.<a href="tipos-de-datos-y-su-manejo..html#tipos-de-datos-y-su-manejo." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Dentro de R, todas las variables están representadas como objetos y estos pueden manipularse de acuerdo las necesidades. La mayoría de los objetos, son o están compuestos por vectores (de hecho, R esta completamente vectorizados y esta es la estructura de datos más importante de la que hablaremos), y estos vectores pueden estar formados por uno de varios tipos básicos de datos: datos numéricos, caracteres, valores lógicos, o fechas. Para saber el tipo de dato que compone a un vector se puede utilizar la función <code>typeof()</code>.</p>
+<div id="datos-numéricos." class="section level3 hasAnchor" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Datos numéricos.<a href="tipos-de-datos-y-su-manejo..html#datos-numéricos." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Los datos numéricos pueden ser de uno de tres tipos: o <code>double</code>, que es el tipo de dato numérico por omisión, y se usa para representar cualquier número real en R. Otra clase de objetos numéricos corresponde a <code>integer</code>, que se usa para representar números enteros solamente. Para crear enteros simplemente coloca una <code>L</code> seguido del número:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="tipos-de-datos-y-su-manejo..html#cb6-1" tabindex="-1"></a><span class="co"># Crea un entero</span></span>
+<span id="cb6-2"><a href="tipos-de-datos-y-su-manejo..html#cb6-2" tabindex="-1"></a>my_int <span class="ot">&lt;-</span> 4L</span>
+<span id="cb6-3"><a href="tipos-de-datos-y-su-manejo..html#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="tipos-de-datos-y-su-manejo..html#cb6-4" tabindex="-1"></a><span class="co"># Verificando</span></span>
+<span id="cb6-5"><a href="tipos-de-datos-y-su-manejo..html#cb6-5" tabindex="-1"></a><span class="fu">typeof</span>(my_int)</span></code></pre></div>
+<p>R usa de forma intercambiable <code>double</code> e <code>integer</code> durante las operaciones matemáticas y en general no te daras cuenta cuando aparezcan enteros. Pero en ciertos casos es útil utilizar enteros ya que ocupan menos memoria (necesitas menos <em>bytes</em> para almacenar un <code>integer</code> en memoria que para almacenar un <code>double</code>).</p>
+<p>Finalmente, el último tipo de dato numérico es el <code>complex</code> que se usa para representar números complejos: aquellos que presentan dos partes, una real y una imaginaria que viene representada por un múltiplo de <span class="math inline">\(i\)</span> (<span class="math inline">\(i\)</span> se define como <span class="math inline">\(i = \sqrt{-1}\)</span>). Puede que nunca te encuentres con estos en tu vida, pero los números complejos tienen muchas aplicaciones en física, matemáticas e ingeniería, y aparecen en varios tópicos interesantes en biología. La manera de escribirlos en R es la siguiente:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="tipos-de-datos-y-su-manejo..html#cb7-1" tabindex="-1"></a><span class="co"># Un número complejo</span></span>
+<span id="cb7-2"><a href="tipos-de-datos-y-su-manejo..html#cb7-2" tabindex="-1"></a>my_complex <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> 2i</span>
+<span id="cb7-3"><a href="tipos-de-datos-y-su-manejo..html#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="tipos-de-datos-y-su-manejo..html#cb7-4" tabindex="-1"></a><span class="co"># Verificas</span></span>
+<span id="cb7-5"><a href="tipos-de-datos-y-su-manejo..html#cb7-5" tabindex="-1"></a><span class="fu">typeof</span>(my_complex)</span></code></pre></div>
+<p>Un punto interesante, si tomas la raíz cuadrada de un número negativo vas a obtener como resultado <code>NaN</code> (este es un valor especial que significa <em>Not a Number</em> y que surge cuando intentas realizar operaciones matemáticas que dan como resultado valores indefinidos) seguido de una advertencia. La razón es que un número negativo en R se representa como un tipo <code>double</code>. Si quieres tener la raíz cuadrada de un numero negativo, este debe representarse primero como un número complejo:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="tipos-de-datos-y-su-manejo..html#cb8-1" tabindex="-1"></a><span class="co"># -1 (la parte imaginaria esta multiplicada por cero, asi que el número es </span></span>
+<span id="cb8-2"><a href="tipos-de-datos-y-su-manejo..html#cb8-2" tabindex="-1"></a><span class="co"># real. Pero de esta forma, R entiende que se trata de un tipo de dato </span></span>
+<span id="cb8-3"><a href="tipos-de-datos-y-su-manejo..html#cb8-3" tabindex="-1"></a><span class="co"># `complex`)</span></span>
+<span id="cb8-4"><a href="tipos-de-datos-y-su-manejo..html#cb8-4" tabindex="-1"></a>my_complex <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> 0i</span>
+<span id="cb8-5"><a href="tipos-de-datos-y-su-manejo..html#cb8-5" tabindex="-1"></a><span class="fu">sqrt</span>(my_complex)</span></code></pre></div>
+</div>
+<div id="caracteres." class="section level3 hasAnchor" number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> Caracteres.<a href="tipos-de-datos-y-su-manejo..html#caracteres." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Los caracteres o cadenas de caracteres son un tipo de dato que permite representar letras, palabras y frases en R. Para crear datos de tipo <code>character</code> solo tienes que escribir un cadena de caracteres entre comillas (“) o comillas sencillas (’)<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>. Puedes usar la función <code>nchar</code> para conocer la longitud de una cadena de caracteres.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="tipos-de-datos-y-su-manejo..html#cb9-1" tabindex="-1"></a>hello <span class="ot">&lt;-</span> <span class="st">&quot;Hello World!&quot;</span></span>
+<span id="cb9-2"><a href="tipos-de-datos-y-su-manejo..html#cb9-2" tabindex="-1"></a>hello</span>
+<span id="cb9-3"><a href="tipos-de-datos-y-su-manejo..html#cb9-3" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="tipos-de-datos-y-su-manejo..html#cb9-4" tabindex="-1"></a><span class="fu">nchar</span>(hello) <span class="co"># 12: el espacio en blanco cuenta como un caracter.</span></span></code></pre></div>
+<p>Date cuenta, que los espacios en blanco son un tipo de caracter también.</p>
+<p>Claro, existen funciones especificas que facilitan el manejo de cadenas de caracteres en R. Por ejemplo, la función <code>paste</code> permite unir dos cadenas de caracteres:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="tipos-de-datos-y-su-manejo..html#cb10-1" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;Hello!&quot;</span>, <span class="st">&quot;R is fun&quot;</span>, <span class="st">&quot;right?&quot;</span>)</span>
+<span id="cb10-2"><a href="tipos-de-datos-y-su-manejo..html#cb10-2" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;Too&quot;</span>, <span class="st">&quot;many&quot;</span>, <span class="st">&quot;underscores!&quot;</span>, <span class="at">sep=</span><span class="st">&quot;_&quot;</span>)</span></code></pre></div>
+<p>La última línea de código utiliza el argumento <code>sep</code> de la función <code>paste</code> para especificar el separador que se coloca entre las cadenas de caracteres que se unirán. Puedes colocar cualquier separador que te parezca, incluso espacios vacíos (““). También puedes llevar a cabo el proceso inverso: tomar una cadena de caracteres y separarla en pedazos cada vez que se encuentre una coincidencia con respecto a un patrón<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> particular. Por ejemplo:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="tipos-de-datos-y-su-manejo..html#cb11-1" tabindex="-1"></a><span class="fu">strsplit</span>(<span class="st">&quot;Break it Ralph! Break it!&quot;</span>, <span class="st">&quot; &quot;</span>)</span></code></pre></div>
+<p>rompe la cadena <code>"Break it Ralph! Break it!"</code> en subcadenas cada vez que encuentra una ocurrencia del patrón ” ” (un espacio en blanco), a saber, <code>"Break"</code>, <code>"it"</code>, <code>"Ralph!"</code>, <code>"Break"</code> e <code>"it!"</code>.</p>
+<p>Además, puedes obtener subcadenas a partir de una cadena utilizando la función <code>substr</code>. Por ejemplo, <code>substr("This is my string", 9, 17)</code> extrae de la cadena <code>"This is my string"</code> una subcadena que empieza en el caracter 9 y termina en el 17 (ejecuta el comando para que observes el resultado).</p>
+<p>Otras funciones útiles lo son: <em>i)</em> Convertir un número en una cadena de caracteres: p. ej. <code>as.character(10)</code>. <em>ii)</em> Todo en minúscula (<code>tolower()</code>) y todo en mayúscula (<code>toupper()</code>). <em>iii)</em> Reemplazo de caracteres: puedes reemplazar todas las ocurrencias de un caracter en una cadena por otro. Por ejemplo:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="tipos-de-datos-y-su-manejo..html#cb12-1" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="st">&quot;La r en R es mayuscula!&quot;</span></span>
+<span id="cb12-2"><a href="tipos-de-datos-y-su-manejo..html#cb12-2" tabindex="-1"></a><span class="fu">chartr</span>(r, <span class="at">old =</span> <span class="st">&quot;r&quot;</span>, <span class="at">new =</span> <span class="st">&quot;R&quot;</span>)</span></code></pre></div>
+<p>reemplaza todas las ocurrencias de <code>r</code> por una <code>R</code>. También funciona si usas mas de un caracter para reemplazar, siempre y cuando coloques por cual lo vas a reemplazar:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="tipos-de-datos-y-su-manejo..html#cb13-1" tabindex="-1"></a>change_two <span class="ot">&lt;-</span> <span class="st">&quot;dexduzl znzlysis&quot;</span></span>
+<span id="cb13-2"><a href="tipos-de-datos-y-su-manejo..html#cb13-2" tabindex="-1"></a><span class="fu">chartr</span>(change_two, <span class="at">old =</span> <span class="st">&quot;dz&quot;</span>, <span class="at">new =</span> <span class="st">&quot;ta&quot;</span>)</span></code></pre></div>
+<p>En este caso, todas las <code>d</code> son reemplazadas por una <code>t</code>, mientras que las <code>z</code> son reemplazadas por <code>a</code>. Esto es, el caracter original (<code>old</code>) en la <span class="math inline">\(i\)</span>-esima posición es reemplazado por la coincidencia encontrada en el caracter nuevo (<code>new</code>) en la misma posición. Es por esto que las cadenas pasadas a los argumentos <code>old</code> y <code>new</code> deben contener el mismo número de caracteres.</p>
+</div>
+<div id="valores-lógicos." class="section level3 hasAnchor" number="1.4.3">
+<h3><span class="header-section-number">1.4.3</span> Valores lógicos.<a href="tipos-de-datos-y-su-manejo..html#valores-lógicos." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Estos corresponden a uno de dos posibilidades: <code>TRUE</code> (verdadero) o <code>FALSE</code> (falso), los cuales son comúnmente utilizados en la toma de decisiones dentro de estructuras de control (Woops! Adelantándome otra vez. Ya pronto sabrás de que trata), y se pueden abreviar usando <code>T</code> o <code>F</code>.</p>
+<p>Estos valores, son el resultado de evaluar expresiones condicionales o relacionales. Estas expresiones se pueden identificar porque utilizan los operadores relacionales <code>&lt;</code> (es menor que), <code>&gt;</code> (es mayor que), <code>&lt;=</code> (es menor o igual que), <code>&gt;=</code> (es mayor o igual que), <code>==</code> (igualdad), y <code>!=</code> (desigualdad). Por ejemplo, supongamos que tienes un variable <code>v</code> a la cual le asignas el valor de 100. Puedes utilizar las operaciones relacionales de la siguiente forma:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="tipos-de-datos-y-su-manejo..html#cb14-1" tabindex="-1"></a>    v <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb14-2"><a href="tipos-de-datos-y-su-manejo..html#cb14-2" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="tipos-de-datos-y-su-manejo..html#cb14-3" tabindex="-1"></a>    v <span class="sc">&gt;</span> <span class="dv">5</span>         <span class="co"># TRUE: 100 si es mayor a 5</span></span>
+<span id="cb14-4"><a href="tipos-de-datos-y-su-manejo..html#cb14-4" tabindex="-1"></a>    v <span class="sc">&lt;</span> <span class="dv">50</span>        <span class="co"># FALSE: 100 no es menor a 50</span></span>
+<span id="cb14-5"><a href="tipos-de-datos-y-su-manejo..html#cb14-5" tabindex="-1"></a>    v <span class="sc">==</span> <span class="dv">100</span>      <span class="co"># TRUE: 100 es igual a 100</span></span>
+<span id="cb14-6"><a href="tipos-de-datos-y-su-manejo..html#cb14-6" tabindex="-1"></a>    v <span class="sc">!=</span> <span class="dv">1000</span>     <span class="co"># TRUE: 100 es diferente de (o no es igual a) 1000</span></span></code></pre></div>
+<p>Si utilizas la función <code>typeof</code> sobre el resultado de una operación lógica, el resultado te dirá que el resultado es un valor lógico (p. ej. <code>typeof( v &gt;= 65)</code> arrojara <code>logical</code> como resultado. ¡Pruebalo!).</p>
+<p>Por último, existen funciones que devuelven valores lógicos y son utiles para saber si una variable particular corresponde a un tipo de dato dado. Estas funciones son de la forma <code>is.*</code>, donde el asterisco corresponde a algun tipo de dato que quieras comprobar. Por ejemplo,</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="tipos-de-datos-y-su-manejo..html#cb15-1" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="dv">1457</span>           <span class="co"># Un numero</span></span>
+<span id="cb15-2"><a href="tipos-de-datos-y-su-manejo..html#cb15-2" tabindex="-1"></a>int <span class="ot">&lt;-</span> 65L            <span class="co"># Un entero</span></span>
+<span id="cb15-3"><a href="tipos-de-datos-y-su-manejo..html#cb15-3" tabindex="-1"></a>boo <span class="ot">&lt;-</span> <span class="st">&quot;Boo!&quot;</span>         <span class="co"># Una cadena de caracteres</span></span>
+<span id="cb15-4"><a href="tipos-de-datos-y-su-manejo..html#cb15-4" tabindex="-1"></a>logic <span class="ot">&lt;-</span>  num <span class="sc">&gt;</span> int   <span class="co"># Un valor lógico</span></span>
+<span id="cb15-5"><a href="tipos-de-datos-y-su-manejo..html#cb15-5" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="tipos-de-datos-y-su-manejo..html#cb15-6" tabindex="-1"></a><span class="co"># Uso de las funciones is.*</span></span>
+<span id="cb15-7"><a href="tipos-de-datos-y-su-manejo..html#cb15-7" tabindex="-1"></a><span class="fu">is.numeric</span>(num)</span>
+<span id="cb15-8"><a href="tipos-de-datos-y-su-manejo..html#cb15-8" tabindex="-1"></a><span class="fu">is.integer</span>(int)</span>
+<span id="cb15-9"><a href="tipos-de-datos-y-su-manejo..html#cb15-9" tabindex="-1"></a><span class="fu">is.character</span>(boo)</span>
+<span id="cb15-10"><a href="tipos-de-datos-y-su-manejo..html#cb15-10" tabindex="-1"></a><span class="fu">is.logical</span>(logic)</span></code></pre></div>
+<p>confirman que las variables declaradas corresponden a sus tipos de datos asignados. Es por ello que todas las funciones arrojan <code>TRUE</code> al ejecutarlas (¿Los ejecutaste para comprobarlo?). También podrías haber evaluado el comando <code>is.numeric(logic)</code>. En este caso, el resultado es <code>FALSE</code>, porque <code>logic</code> es una variable de tipo <code>logical</code>, no <code>numeric</code>.</p>
+</div>
+<div id="fechas-y-tiempo." class="section level3 hasAnchor" number="1.4.4">
+<h3><span class="header-section-number">1.4.4</span> Fechas y tiempo.<a href="tipos-de-datos-y-su-manejo..html#fechas-y-tiempo." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Las fechas y el tiempo son unas de esas cosas que todos creemos manejar fácilmente, pero que en la practica se convierten en difíciles de tratar. La razón de esto es que las fechas y el tiempo dependen de dos factores: el movimiento de rotación y traslación terrestre, en conjunto con los problemas geopolíticos de asignar zonas horarias.</p>
+<p>Puedes obtener la hora actual, así como fecha y la zona horaria utilizando las funciones <code>Sys.timezone()</code>, <code>Sys.Date()</code>, <code>Sys.time()</code>. Sin embargo, hay veces en las que hay que tratar con fechas y horas que no corresponden al actual y, por lo general, estas son importadas a R en forma de caracteres. Por lo tanto, estas se deben de convertir a objetos de clase <code>Date</code> o <code>POSIXct</code> (en el caso de horas)<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> antes de poder usarlas. Puedes hacerlo de la siguiente forma:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="tipos-de-datos-y-su-manejo..html#cb16-1" tabindex="-1"></a><span class="co"># El formato por omisión es YYYY-MM-DD (año, mes, día)</span></span>
+<span id="cb16-2"><a href="tipos-de-datos-y-su-manejo..html#cb16-2" tabindex="-1"></a><span class="fu">as.Date</span>(<span class="st">&quot;1994-10-29&quot;</span>)</span>
+<span id="cb16-3"><a href="tipos-de-datos-y-su-manejo..html#cb16-3" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="tipos-de-datos-y-su-manejo..html#cb16-4" tabindex="-1"></a><span class="co"># A veces es mejor especificar el formato</span></span>
+<span id="cb16-5"><a href="tipos-de-datos-y-su-manejo..html#cb16-5" tabindex="-1"></a><span class="fu">as.Date</span>(<span class="st">&quot;29/10/1994&quot;</span>, <span class="at">format =</span> <span class="st">&quot;%d/%m/%y&quot;</span>)</span></code></pre></div>
+<p>Date cuenta que el separador de los componentes de la fecha puede ser distinto: en el ejemplo, una fecha usa como separador “-”, mientras que la otra usa “/”. Otros separadores comunes son el punto (“.”) o sin separador (““). Si utilizas la función <code>typeof</code> sobre un objeto de la clase <code>Date</code> o <code>POSIXct</code> el resultado será <code>double</code>: esto es así porque internamente R representa las fechas y horas como números de punto flotante.</p>
+<p>También puedes crear un objeto de clase <code>POSIXct</code> usando la función <code>ISOdate</code>, la cual recibe literales de cadena especificando el año, mes, día, hora, minuto, segundos, e incluso zona horaria (p. ej. <code>ISOdate(year = "2020", month = "03", day = "10")</code>). Luego, puedes convertir este a una fecha (objeto de clase <code>Date</code>) usando <code>as.Date</code> al igual que antes.</p>
+<p>Una funcionalidad mas acerca de las fechas y horas, es que puedes realizar cálculos con estas:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="tipos-de-datos-y-su-manejo..html#cb17-1" tabindex="-1"></a><span class="co"># Cálculos con fechas</span></span>
+<span id="cb17-2"><a href="tipos-de-datos-y-su-manejo..html#cb17-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>() <span class="co"># Fecha Actual</span></span>
+<span id="cb17-3"><a href="tipos-de-datos-y-su-manejo..html#cb17-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;2020-03-01&quot;</span>) <span class="co"># Por ahí inicio la pandemia por Sars-CoV-2</span></span>
+<span id="cb17-4"><a href="tipos-de-datos-y-su-manejo..html#cb17-4" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="tipos-de-datos-y-su-manejo..html#cb17-5" tabindex="-1"></a>x <span class="sc">&gt;</span> y <span class="co"># Operaciones lógicas con fechas</span></span>
+<span id="cb17-6"><a href="tipos-de-datos-y-su-manejo..html#cb17-6" tabindex="-1"></a>x <span class="sc">-</span> y <span class="co"># Te dice cuantos días de diferencia hay entre ambas fechas</span></span>
+<span id="cb17-7"><a href="tipos-de-datos-y-su-manejo..html#cb17-7" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="tipos-de-datos-y-su-manejo..html#cb17-8" tabindex="-1"></a><span class="co"># Cálculos con zonas horarias</span></span>
+<span id="cb17-9"><a href="tipos-de-datos-y-su-manejo..html#cb17-9" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2015-09-22 01:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;Europe/Madrid&quot;</span>)</span>
+<span id="cb17-10"><a href="tipos-de-datos-y-su-manejo..html#cb17-10" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2015-09-22 01:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;America/Caracas&quot;</span>)</span>
+<span id="cb17-11"><a href="tipos-de-datos-y-su-manejo..html#cb17-11" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="tipos-de-datos-y-su-manejo..html#cb17-12" tabindex="-1"></a>y <span class="sc">==</span> x <span class="co"># Operaciones lógicas con zonas horarias</span></span>
+<span id="cb17-13"><a href="tipos-de-datos-y-su-manejo..html#cb17-13" tabindex="-1"></a>y <span class="sc">-</span> x <span class="co"># Te dice cuantos horas de diferencia hay entre ambas zonas</span></span></code></pre></div>
+<p>Si no conoces cuales son las zonas horarias, no hay problema. R provee una función que te muestra todas las zonas horarias: <code>OlsonNames()</code>.</p>
+<p><strong>Pon en práctica lo que aprendiste.</strong></p>
+<ol style="list-style-type: decimal">
+<li>Crea un objeto de clase <code>Date</code> que contenga tu fecha de nacimiento.</li>
+<li>Calcula cuantos días y tiempo falta para tu próximo cumpleaños.</li>
+</ol>
+</div>
+<div id="otros-valores-especiales." class="section level3 hasAnchor" number="1.4.5">
+<h3><span class="header-section-number">1.4.5</span> Otros valores especiales.<a href="tipos-de-datos-y-su-manejo..html#otros-valores-especiales." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>R tiene algunos valores especiales que deben tratarse con cuidado. Algunos de ellos ya han aparecido:</p>
+<ul>
+<li>Valores faltantes (<code>NA</code> o <em>Not Available</em>): aparecen a menudo cuando se importan datos en los cuales no se han registrado algunas observaciones. Puedes verificar que el valor almacenado en una variable es un <code>NA</code> usando la función <code>is.na()</code>.</li>
+<li>Valores no numéricos (<code>NaN</code> o <em>Not a Number</em>): aparecen cuando se tratan de realizar operaciones que arrojan resultados indefinidos. Ya vimos un ejemplo con la raíz cuadrada de un número negativo. Otro ejemplo ocurre cuando tratas de realizar la operación <code>0/0</code>.</li>
+<li>Infinitos (<code>Inf</code> o <em>Infinite</em>): aparece cuando se tratan de realizar operaciones cuyo resultado es un valor muy grande. Por ejemplo, aparece cuando tratas de hacer la operación <code>1/0</code>. También se pueden obtener infinitos negativos cuando hay negativos involucrados en la operación (p. ej. <code>-1*Inf</code>).</li>
+</ul>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="6">
+<li id="fn6"><p>En R es indiferente si usas comillas dobles o sencillas para definir caracteres, el resultado final será el mismo. La razón de la existencia de ambos es que para escribir en una computadora unas comillas simple solo tienes que presionar una tecla, mientras que para la comillas dobles tienes que presionar dos teclas (por lo general, <code>shift + 2</code>, aunque depende de como este configurado tu teclado). Los programadores son flojos, y siempre que puedan ahorrarse el tiempo de presionar aunque sea una tecla, lo harán. Aunque en R ya esta tan extendido el uso de las comillas dobles, que será raro que encuentres código con comillas simples.<a href="tipos-de-datos-y-su-manejo..html#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>Un patrón hace referencia a una expresión regular o <em>regex</em> (por <em>regular expression</em>) el cual simplemente es una expresión (cadena o secuencia de caracteres) que define un patrón de búsqueda. Este es un tema muy extenso y puede que no se cubra en este texto.<a href="tipos-de-datos-y-su-manejo..html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>Esto de las clases y los objetos se volverá más importante y lo aclararé mas adelante. Por ahora solo es necesario que entiendas que los objetos representados en R pertenecen a clases particulares (p. ej. las fechas corresponden a objetos de la clase <code>Date</code>) los cuales pueden tener atributos particulares que definen algunas características del objeto (p. ej. un atributo de un vector es la longitud, esto es, cuantos elementos contiene el vector).<a href="tipos-de-datos-y-su-manejo..html#fnref8" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="asignación-de-variables..html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="organizandote-scripts..html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.1 Vectores | R-Biologos.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.1 Vectores | R-Biologos.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.1 Vectores | R-Biologos.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="estructuras-de-datos..html"/>
+<link rel="next" href="marices-y-arreglos..html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="1" data-path="empezando-comandos-básicos..html"><a href="empezando-comandos-básicos..html"><i class="fa fa-check"></i><b>1</b> Empezando: Comandos Básicos.</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="el-entorno-de-trabajo..html"><a href="el-entorno-de-trabajo..html"><i class="fa fa-check"></i><b>1.1</b> El entorno de trabajo.</a></li>
+<li class="chapter" data-level="1.2" data-path="usando-la-consola-operaciones-matemáticas-en-r..html"><a href="usando-la-consola-operaciones-matemáticas-en-r..html"><i class="fa fa-check"></i><b>1.2</b> Usando la consola: operaciones matemáticas en R.</a></li>
+<li class="chapter" data-level="1.3" data-path="asignación-de-variables..html"><a href="asignación-de-variables..html"><i class="fa fa-check"></i><b>1.3</b> Asignación de variables.</a></li>
+<li class="chapter" data-level="1.4" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html"><i class="fa fa-check"></i><b>1.4</b> Tipos de datos y su manejo.</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#datos-numéricos."><i class="fa fa-check"></i><b>1.4.1</b> Datos numéricos.</a></li>
+<li class="chapter" data-level="1.4.2" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#caracteres."><i class="fa fa-check"></i><b>1.4.2</b> Caracteres.</a></li>
+<li class="chapter" data-level="1.4.3" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#valores-lógicos."><i class="fa fa-check"></i><b>1.4.3</b> Valores lógicos.</a></li>
+<li class="chapter" data-level="1.4.4" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#fechas-y-tiempo."><i class="fa fa-check"></i><b>1.4.4</b> Fechas y tiempo.</a></li>
+<li class="chapter" data-level="1.4.5" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#otros-valores-especiales."><i class="fa fa-check"></i><b>1.4.5</b> Otros valores especiales.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="organizandote-scripts..html"><a href="organizandote-scripts..html"><i class="fa fa-check"></i><b>1.5</b> Organizandote: <em>Scripts</em>.</a></li>
+<li class="chapter" data-level="1.6" data-path="necesitas-ayuda-r-te-ayuda.html"><a href="necesitas-ayuda-r-te-ayuda.html"><i class="fa fa-check"></i><b>1.6</b> Necesitas ayuda: R te ayuda!</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="comunicando-resultados-y-tomando-notas..html"><a href="comunicando-resultados-y-tomando-notas..html"><i class="fa fa-check"></i><b>2</b> Comunicando Resultados y Tomando notas.</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="instalando-paquetes-en-r..html"><a href="instalando-paquetes-en-r..html"><i class="fa fa-check"></i><b>2.1</b> Instalando paquetes en R.</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="instalando-paquetes-en-r..html"><a href="instalando-paquetes-en-r..html#representación-de-objetos-y-el-uso-de-comillas."><i class="fa fa-check"></i><b>2.1.1</b> Representación de objetos y el uso de comillas.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="investigación-reproducible-r-markdown..html"><a href="investigación-reproducible-r-markdown..html"><i class="fa fa-check"></i><b>2.2</b> Investigación reproducible: R Markdown!.</a></li>
+<li class="chapter" data-level="2.3" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html"><i class="fa fa-check"></i><b>2.3</b> R Markdown: Estructura y Ejecución.</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#instalando-r-markdown."><i class="fa fa-check"></i><b>2.3.1</b> Instalando R Markdown.</a></li>
+<li class="chapter" data-level="2.3.2" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#anatomía-de-un-documento-r-markdown."><i class="fa fa-check"></i><b>2.3.2</b> Anatomía de un documento <em>R Markdown</em>.</a></li>
+<li class="chapter" data-level="2.3.3" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#imágenes-y-tablas."><i class="fa fa-check"></i><b>2.3.3</b> Imágenes y tablas.</a></li>
+<li class="chapter" data-level="2.3.4" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#bibliografía-y-referencias."><i class="fa fa-check"></i><b>2.3.4</b> Bibliografía y referencias.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="notas-finales-sobre-la-investigacion-reproducible..html"><a href="notas-finales-sobre-la-investigacion-reproducible..html"><i class="fa fa-check"></i><b>2.4</b> Notas finales sobre la investigacion reproducible.</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="estructuras-de-datos..html"><a href="estructuras-de-datos..html"><i class="fa fa-check"></i><b>3</b> Estructuras de Datos.</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="vectores.html"><a href="vectores.html"><i class="fa fa-check"></i><b>3.1</b> Vectores</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="vectores.html"><a href="vectores.html#operaciones-sobre-vectores."><i class="fa fa-check"></i><b>3.1.1</b> Operaciones sobre vectores.</a></li>
+<li class="chapter" data-level="3.1.2" data-path="vectores.html"><a href="vectores.html#vectorización-y-funciones."><i class="fa fa-check"></i><b>3.1.2</b> Vectorización y funciones.</a></li>
+<li class="chapter" data-level="3.1.3" data-path="vectores.html"><a href="vectores.html#indexado-usando-expresiones-lógicas."><i class="fa fa-check"></i><b>3.1.3</b> Indexado usando expresiones lógicas.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="marices-y-arreglos..html"><a href="marices-y-arreglos..html"><i class="fa fa-check"></i><b>3.2</b> Marices y arreglos.</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="marices-y-arreglos..html"><a href="marices-y-arreglos..html#matrices."><i class="fa fa-check"></i><b>3.2.1</b> Matrices.</a></li>
+<li class="chapter" data-level="3.2.2" data-path="marices-y-arreglos..html"><a href="marices-y-arreglos..html#arreglos."><i class="fa fa-check"></i><b>3.2.2</b> Arreglos.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="factores.html"><a href="factores.html"><i class="fa fa-check"></i><b>3.3</b> Factores</a></li>
+<li class="chapter" data-level="3.4" data-path="tablas-de-datos-data-frames..html"><a href="tablas-de-datos-data-frames..html"><i class="fa fa-check"></i><b>3.4</b> Tablas de Datos (<em>data frames</em>).</a></li>
+<li class="chapter" data-level="3.5" data-path="listas..html"><a href="listas..html"><i class="fa fa-check"></i><b>3.5</b> Listas.</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="vectores" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Vectores<a href="vectores.html#vectores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Los vectores son objetos que contienen varios elementos relacionados (del mismo tipo o clase). Estos elementos estan indexados: esto es, cada elemento tiene asociado un numero que determina la posicion del elemento en el vector, comenzando desde el <span class="math inline">\(1\)</span>. Las variables creadas asignando un solo valor a ellas son vectores de longitud uno. A estos se les llama atómicos.</p>
+<p>Los vectores se pueden crear usando la función <code>c()</code>, como en <code>c("AC/DC", "Led Zeppelin", Guns &amp; Roses")</code>. Se pueden añadir tantos elementos como se quiera. Para acceder a los elementos de un vector, se utilizan los operadores de indexado <code>[</code> y <code>]</code>, encerrando el número que identifica la posición del elemento deseado. Por ejemplo:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="vectores.html#cb35-1" tabindex="-1"></a>    bandas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;AC/DC&quot;</span>, <span class="st">&quot;Led Zeppelin&quot;</span>, <span class="st">&quot;Guns &amp; Roses&quot;</span>, <span class="st">&quot;Blink 182&quot;</span>)</span>
+<span id="cb35-2"><a href="vectores.html#cb35-2" tabindex="-1"></a>    bandas[<span class="dv">4</span>] <span class="co"># Devuelve &quot;Blink 182&quot;</span></span></code></pre></div>
+<p>Empezando a contar desde el 1, el elemento <code>"AC/DC"</code>, el elemento 4 sería el elemento <code>"Blink 182"</code>.</p>
+<p>Es posible saber la longitud de cualquier vector usando la función <code>length</code>. La longitud es el número total de elementos contenidos en el vector. Por ejemplo, el resultado de usar <code>length(bandas)</code> arroja <span class="math inline">\(4\)</span>.</p>
+<p>En la práctica, es usual crear vectores que sean secuencias de números o vectores de elementos que se repiten.
+En por ello que existen funciones especiales que permiten crear este tipo de vectores.
+Si se quiere crear una secuencia de números se puede usar <code>seq</code> de la siguiente forma:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="vectores.html#cb36-1" tabindex="-1"></a>    my_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="co"># Primeros 100 numeros naturales </span></span>
+<span id="cb36-2"><a href="vectores.html#cb36-2" tabindex="-1"></a>    pares <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="at">by=</span><span class="dv">2</span>) <span class="co"># Numeros pares menores que 100</span></span></code></pre></div>
+<p>En las declaraciones anteriores, se especifica con el primer y segundo argumento el comienzo y final de la secuencia, respectivamente. El tercer argumento es opcional: si se omite, cada elemento de la secuencia es mayor al anterior en solo una unidad (el caso de <code>my_seq</code>), de lo contario, cada elemento es el anterior + el numero de unidades que dice <code>by</code> (en el caso de <code>pares</code>, cada elemento es dos veces el anterior).
+También es posible crear secuencias en la que los elementos esten en orden decreciente. Por ejemplo, <code>seq(-1, -100, by=-2)</code> genera una secuencia de enteros impares negativos mayores que <span class="math inline">\(-100\)</span>, comenzando con <span class="math inline">\(-1\)</span>, <span class="math inline">\(-3\)</span>, <span class="math inline">\(-5\)</span>, <span class="math inline">\(\ldots\)</span>.</p>
+<p>La creación de secuencias de enteros uno a uno (<code>by=1</code> o <code>by=-1</code>) es tan usual, que existe un atajo para crearlos, usando la notación <code>a:b</code>. Por ejemplo, es posible crear el vector <code>my_seq</code> del ejemplo anterior como <code>0:100</code>, o uno en sentido descendente como <code>10:-10</code>.</p>
+<p>Para crear vectores de repeticiones se usa la función <code>rep</code> de la siguiente forma:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="vectores.html#cb37-1" tabindex="-1"></a>    my_rep <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">&quot;Oh!&quot;</span>, <span class="dv">3</span>) <span class="co"># &quot;Oh!&quot; &quot;Oh!&quot; &quot;Oh!&quot;</span></span>
+<span id="cb37-2"><a href="vectores.html#cb37-2" tabindex="-1"></a>    my_vec_rep <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Wham&quot;</span>, <span class="st">&quot;Bam!&quot;</span>), <span class="dv">2</span>) <span class="co"># &quot;Wham&quot; &quot;Bam!&quot; &quot;Wham&quot; &quot;Bam!&quot;</span></span></code></pre></div>
+<p>El segundo argumento dice el número de veces que se repite el elemento de entrada.
+Como se ve en la segunda linea, si el argumento a repetir es un vector, todo el vector se repite el numero de veces que dice el segundo argumento.
+Se ve que que el resultado es el vector original, seguido del mismo vector, seguido del mismo vector, …, el numero de veces que dice el segundo argumento.
+Hay otra forma de hacer repeticiones, usando un tercer argumento, <code>each</code>, de la siguiente forma:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="vectores.html#cb38-1" tabindex="-1"></a>    my_vec_rep <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Wham&quot;</span>, <span class="st">&quot;Bam!&quot;</span>), <span class="at">each=</span><span class="dv">2</span>) <span class="co"># &quot;Wham&quot; &quot;Wham&quot; &quot;Bam!&quot; &quot;Bam!&quot;</span></span></code></pre></div>
+<p>En este caso, el argumento <code>each</code> dice el numero de veces que cada elemento del vector de entrada se repite.</p>
+<div id="operaciones-sobre-vectores." class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Operaciones sobre vectores.<a href="vectores.html#operaciones-sobre-vectores." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Las operaciones especificas para un tipo de dato particular, se pueden realizar sobre vectores con elementos de ese tipo de dato.
+Por ejemplo, las operaciones ariméticas también son válidas sobre vectores, solo se debe conocer la forma como esas operaciones se llevan a cabo.
+Para empezar sencillo, digamos que queremos crear un vector de los primeros 10 múltiplos de 2. Como vimos antes, se podría hacer con una secuencia, pero aqui estamos interesados en ver como funcionan las operaqciones con vectores.
+Al realizar operaciones de un vector con un escalar (un atómico), el resultado es un vector en el que cada elemento en la <span class="math inline">\(i\)</span>-esima posición es el elemento <span class="math inline">\(i\)</span> del vector inicial operado con el escalar (atómico).
+Para dejar esto más clar, el siguiente ejemplo muestra la multiplicación de un escalar por un vector:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="vectores.html#cb39-1" tabindex="-1"></a>    my_vector <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb39-2"><a href="vectores.html#cb39-2" tabindex="-1"></a>    my_vector <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
+<p>Como se puede ver, el resultado de <code>c(1, 2, 3, ..., 10) * 2</code> es <code>c(1 * 2, 2 * 2, ..., 10 * 2)</code>, esto es, cada elemento de <code>my_vector</code> se multuplica pór <code>2</code>.
+De manera general, esto ocurre siempre de esta forma. Las operaciones sobre vectores ocurren elemento a elemento.
+Un caso más complicado surge cuadno queremos realizar operaciones sobre dos vectores de igual longitud: digamos sumar los primeros 10 numeros pares a los primeros 10 numeros impares.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="vectores.html#cb40-1" tabindex="-1"></a>    first_10_even <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb40-2"><a href="vectores.html#cb40-2" tabindex="-1"></a>    first_10_odd <span class="ot">&lt;-</span>first_10_even <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb40-3"><a href="vectores.html#cb40-3" tabindex="-1"></a>    first_10_even <span class="sc">+</span> first_10_odd</span></code></pre></div>
+<p>Noten el uso de la aritmética de vectores por un escalar para crear los primeros dos vectores.
+El resultado final muestra que la aritmetica de vectores se hace tomando el elemento en la posición <span class="math inline">\(i\)</span> del primer vector, y opera sobre el elemento en la misma posicion del segundo vector.
+De forma que al realizar <code>c(2, 4, 6, ..., 20) + c(1, 3, 5, ..., 19)</code>, el resultado es <code>c(2 + 1, 4 + 3, ..., 20 + 19)</code>.</p>
+<p>Ahora, ¿qué sucedería si los vectores fuera de longitud distinta?. Por ejemplo, el siguinte ejemplo:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="vectores.html#cb41-1" tabindex="-1"></a>    <span class="dv">1</span> <span class="sc">:</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">100</span>)</span></code></pre></div>
+<p>muestra que el resultado sigue usando el mismo procedimiento descrito antes, solo que ahora, al llegar al ultimo elemento del vector de menor longitud, se vuelve a usar el primer elemento de ese vector para continuar con la operación.
+En el caso anterior, la operacion se interpreta como <code>c(1 * 10, 2 * 100, 3 * 10, 4 * 100, 5 * 10, ..., 9 * 10, 10 * 100)</code>.
+A este proceso se le llama <em>reciclado</em>.</p>
+<p>Cuando se trata de hacer operaciones con vectores de longitud distinta, estas siempre son posibles hacerlas. Sin embargo, si la longitud de un vector no es multiplo de la longitud del otro vector, el proceso de reciclado ocurre de forma incompleta y R lanza una advertencia para que tengas cuidado con lo que esperas.
+Por ejemplo, si el caso anterior se modifica un poco:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="vectores.html#cb42-1" tabindex="-1"></a>    <span class="dv">1</span> <span class="sc">:</span> <span class="dv">11</span> <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">100</span>)</span></code></pre></div>
+<p>Esto se interpreta igual que antes, solo que el ultimo elemento es <code>11 * 1</code>, el ultimo elemento del vector por el primero del segundo.
+La advertencia surge debido a que, durante el reciclado, R trata de usar multiplicar los elementos del vector de menor longitud tantas veces como es posible.
+Pero como el primer vector no tiene suficientes elementos para lograr esto, se lanza la advertencia sobre la diferenciaq de longitudes.</p>
+<p>Ahora, de igual forma que las operaciones aritméticas son posibles con vectores. las operaciones lógicas también lo son, permitiendo obtener vectores lógicos: vectores cuyos elementos son todos <code>TRUE</code> o <code>FALSE</code>.
+Por ejemplo:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="vectores.html#cb43-1" tabindex="-1"></a>    <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">&gt;=</span> <span class="dv">5</span> </span></code></pre></div>
+<p>Al igual que con los vectores de números, las operaciones se hacen elemento a elemento, y en el caso de longitudes distintas, se recicla.
+Y, al igual que con los vectores numéricos, es posible llevar a cabo operaciones lógicas con vectores de caracteres. Por ejemplo:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="vectores.html#cb44-1" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">&quot;Eliana&quot;</span>, <span class="st">&quot;Marcelo&quot;</span>, <span class="st">&quot;Darvin&quot;</span>, <span class="st">&quot;Jesus&quot;</span>, <span class="st">&quot;Arianna&quot;</span>) <span class="sc">!=</span> <span class="st">&quot;Marcelo&quot;</span> </span></code></pre></div>
+<p>Una operación lógica que resulta bastante conveniente, es la que se realiza usando el operador <code>%in%</code>.
+Este operador lo que hace es chequear si el objeto u objetos (contenidos en un vector) se encuentran representado en los elementos de un vector de posibilidades.
+Por ejemplo:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="vectores.html#cb45-1" tabindex="-1"></a>    bands <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;AC/DC&quot;</span>, <span class="st">&quot;Led Zeppelin&quot;</span>, <span class="st">&quot;Guns &amp; Roses&quot;</span>, <span class="st">&quot;Blink 182&quot;</span>, <span class="st">&quot;Neck Deep&quot;</span>, <span class="st">&quot;State Champs&quot;</span>, <span class="st">&quot;Green Day&quot;</span>, <span class="st">&quot;The Offsprings&quot;</span>)</span>
+<span id="cb45-2"><a href="vectores.html#cb45-2" tabindex="-1"></a>    bands <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;AC/DC&quot;</span>, <span class="st">&quot;Led Zeppelin&quot;</span>, <span class="st">&quot;Guns &amp; Roses&quot;</span>, <span class="st">&quot;The Offsprings&quot;</span>)</span></code></pre></div>
+<p>El resultado es un vector con un <code>TRUE</code> en las posiciones en las que se encuentra un elemento que coincide con alguno de los elementos en el vector a la derecha del operador <code>%in%</code>.</p>
+</div>
+<div id="vectorización-y-funciones." class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Vectorización y funciones.<a href="vectores.html#vectorización-y-funciones." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La razón por la que es posible realizar operaciones de forma tan sencilla en R, es debido a que el lenguaje esta vectorizado.
+Esto quiere decir, que las operaciones ocurren en todos los elemento de un vector sin la necesidad de iterar<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a> por cada uno de los elementos, uno a la vez.</p>
+<p>La vectorización es también lo que hace posible el uso de funciones sobre vectores.
+Por ejemplo, si se tiene un vector con los primeros 100 enteros, y se quiere saber la raíz cuadrada de cada uno de ellos, solo es necesario aplicar la función al vector: <code>sqrt(1:100)</code>.
+Esto se interpreta como: <code>c(sqrt(1), sqrt(2), ..., sqrt(100))</code>.
+De igual forma, todas las funciones matemáticas en R estan vectorizadas para operar sobre todos los elementos a la vez.</p>
+<p>Muchas funciones en R estan vectorizadas. Es lo que lo hace tan conveniente.
+Y muchas funciones que realizan tareas usualmente encontradas en análisis de datos y otras aplicaciones, estan disponibles en R para facilitar el trabajo y no tener que reinventar la rueda cada vez.</p>
+<p>Estas funciones operan sobre vectores, devolviendo un atómico como resultado. Por ejemplo, varias funciones usuales que operan sobre vectores son las siguientes:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="vectores.html#cb46-1" tabindex="-1"></a><span class="fu">min</span>(<span class="sc">-</span><span class="dv">10</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># minimo de un numero</span></span>
+<span id="cb46-2"><a href="vectores.html#cb46-2" tabindex="-1"></a><span class="fu">max</span>(<span class="sc">-</span><span class="dv">10</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># Maximo de un numero</span></span>
+<span id="cb46-3"><a href="vectores.html#cb46-3" tabindex="-1"></a><span class="fu">prod</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># Factorial</span></span>
+<span id="cb46-4"><a href="vectores.html#cb46-4" tabindex="-1"></a><span class="fu">sum</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># Sumatoria</span></span></code></pre></div>
+<p>La ultima función es particularmente útil cuando quieres contar el numero de elementos que cumplen una condición.
+Por ejemplo, digamos que queremos saber cual es el número de elementos mayores a <span class="math inline">\(50\)</span> en una muestra de <span class="math inline">\(100\)</span> elementos tomados al azar de un vector de numeros enteros en el intervalo <span class="math inline">\([1, 100]\)</span>.
+El código para realizar esta tarea es el siguiente:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="vectores.html#cb47-1" tabindex="-1"></a>my_sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">100</span>, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb47-2"><a href="vectores.html#cb47-2" tabindex="-1"></a><span class="fu">sum</span>(my_sample <span class="sc">&gt;</span> <span class="dv">50</span>)</span></code></pre></div>
+<p>La función <code>sample</code> recibe un vector y un numero que dice cuantos elementos se tomaran de muestra del vector.
+El argumento <code>replace</code> dice que una vez que se toma un elemento, este se anota y se devuelve de forma que este disponible para poder tomarlo una vez más<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>
+Luego, la condición dentro de la función <code>sum</code> genera un vector lógico con <code>TRUE</code> donde haya elementos mayores a <span class="math inline">\(50\)</span>.
+Como los vectores lógicos se interpretan como <span class="math inline">\(1\)</span> (<code>TRUE</code>) y <span class="math inline">\(0\)</span> (<code>FALSE</code>) internamente; cuando se aplica <code>sum</code>, esta se encarga de sumar solo 1’s y 0’s.
+De esta forma, es fácil realizar conteos en R.</p>
+<p>Otras funciones útiles son <code>any</code> y <code>all</code>, las cuales devuelven un valor lógico.
+<code>any</code> devuelve <code>TRUE</code> si un vector lógico contiene al menos un <code>TRUE</code>, de otra forma regresa <code>FALSE</code>.
+<code>all</code> devuelve <code>TRUE</code> si todos los elementos de un vector son <code>TRUE</code>, de otra froma regresa <code>FALSE</code>.
+Estas funciones son muy útiles en combianción con operadores lógicos:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="vectores.html#cb48-1" tabindex="-1"></a>my_sample <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">15</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">14</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">14</span>, <span class="dv">29</span>)</span>
+<span id="cb48-2"><a href="vectores.html#cb48-2" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">sum</span>(my_sample <span class="sc">%%</span> <span class="dv">7</span>) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="co"># TRUE ya que hay multiplos de cero en my_sample</span></span>
+<span id="cb48-3"><a href="vectores.html#cb48-3" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">sum</span>(my_sample <span class="sc">%%</span> <span class="dv">2</span>) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="co"># FALSE porque no todos los elementos de my_sample son pares</span></span></code></pre></div>
+<p>La función <code>sample</code> es como otras funciones en R que reciben un vector (y posiblemente otros argumentos) y devuelven más vectores como resultado.
+Por ejemplo, podemos tener un vector de elementos desordenados, y puede que queramos ordenarlo de forma creciente:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="vectores.html#cb49-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Antes de ordenar:</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb49-2"><a href="vectores.html#cb49-2" tabindex="-1"></a>    my_sample,</span>
+<span id="cb49-3"><a href="vectores.html#cb49-3" tabindex="-1"></a>    <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Despues de ordenar:</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb49-4"><a href="vectores.html#cb49-4" tabindex="-1"></a>    <span class="fu">sort</span>(my_sample))</span></code></pre></div>
+<p>La función <code>cat</code> se encarga de imprimir objetos en R, combinándolos primero.</p>
+<p><strong>Funciones estadísticas</strong></p>
+<p>Existen un conjunto de cálculos matemáticos en el análisis de datos que son tan frecuentes, que ya están programadas por omisión dentro de R.
+Estas funciones son <code>mean</code>, <code>var</code>, <code>sd</code>, <code>median</code>, <code>range</code>, <code>quantile</code> y <code>cor</code>, las cuales reciben un vector numérico, y devuelven la media, varianza, desviación estándar, mediana, rango, y los cuantiles, respectivamente.
+El código siguiente muestra el calculo de las medidas de tendencia central y dispersión para un vector.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="vectores.html#cb50-1" tabindex="-1"></a><span class="fu">c</span>(<span class="at">Media=</span><span class="fu">mean</span>(my_sample), <span class="at">Mediana=</span><span class="fu">median</span>(my_sample), <span class="at">Var=</span><span class="fu">var</span>(my_sample), <span class="at">Std.Error=</span><span class="fu">sd</span>(my_sample))</span></code></pre></div>
+<p>La función <code>range</code> devuelve un vector con dos elementos, los valores con magnitud máxima y minima</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="vectores.html#cb51-1" tabindex="-1"></a><span class="fu">range</span>(my_sample)</span></code></pre></div>
+<p>La funcion <code>quantile</code> devuelve los cuartiles calculados a partir de la muestra. Noten que el <span class="math inline">\(Q_{50\%}\)</span> es la mediana, y <span class="math inline">\(Q_{0\%}\)</span> y <span class="math inline">\(Q_{100\%}\)</span> son el valor mínimo y máximo devueltos por <code>range</code>.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="vectores.html#cb52-1" tabindex="-1"></a><span class="fu">quantile</span>(my_sample)</span></code></pre></div>
+<p>Ahora, podemos ver en mas detalle la función <code>sample</code>. Esta es muy útil para realizar simulaciones. Pero también lo es en el análisis de datos, ya que permite seleccionar de forma aleatoria un conjunto de datos que puede servir como un conjunto de datos independiente del ajuste de un modelo por ejemplo.</p>
+<p>Esta funcion permite tomar una muestra aleatoria a partir de un vector que es dado como argumento a la función.
+El tamaño de la muestra a tomar se puede especificar como el segundo argumento, <code>size</code>, el cual por omisión es igual a la longitud del vector.
+El argumento <code>replace</code> es un valor lógico que indica si el muestreo se hace con reemplazo o sin reemplazo, y el ultimo argumento, <code>prob</code>, es un vector de probabilidades que permite especificar la frecuencia que se espera tenga un elemento en el vector. Por omisión, esta es igual para todos los elementos.</p>
+<p><strong>Datos Faltantes (<em>Missing</em>).</strong></p>
+<p>Como ya vimos anteriormente, <code>NA</code> es un objeto especial en R que significa que hay un dato faltante. Vimos que es posible comprobar si un objeto es un dato faltante usando la función <code>is.na()</code>, la cual devuelve <code>TRUE</code> si es <code>NA</code>, y <code>FALSE</code> de otra forma.
+Los datos faltantes son comunes en el análisis de datos y deben tratarse de manera adecuada durante el proceso previo al análisis, e incluso, durante el análisis.
+Por ejemplo, digamos que se quiere calcular la media del siguiente vector:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="vectores.html#cb53-1" tabindex="-1"></a>vec_w_NA <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">17</span>, <span class="dv">25</span>, <span class="cn">NA</span>, <span class="dv">42</span>, <span class="dv">23</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="cn">NA</span>, <span class="dv">17</span>)</span>
+<span id="cb53-2"><a href="vectores.html#cb53-2" tabindex="-1"></a><span class="fu">mean</span>(vec_w_NA)</span></code></pre></div>
+<p>Como se observa, el vector tiene dos datos faltantes, y al calcular la media, el resultado es un <code>NA</code>.
+La razón de esto, es que no es posible realizar cálculos con datos faltan tes. Es por ello que se deben eliminar antes de realizar el calculo.
+Sin embargo, no es necesario hacerlo de manera explicita, dado que las funciones estadísticas contienen argumentos que permiten eliminar de forma automática los <code>NA</code> del calculo.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="vectores.html#cb54-1" tabindex="-1"></a><span class="fu">mean</span>(vec_w_NA, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>En la siguiente parte, veremos como podemos utilizar expresiones lógicas para obtener un conjunto de datos libre de <code>NA</code>.</p>
+</div>
+<div id="indexado-usando-expresiones-lógicas." class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Indexado usando expresiones lógicas.<a href="vectores.html#indexado-usando-expresiones-lógicas." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En R, una <em>expresión</em> es toda frase o segmento de código que puede ejecutarse.
+Al escribir una linea de código, se esta creando una expresión de R que puede ser evaluada (al oprimir <code>Enter</code>).
+Las expresiones evaluadas pueden mantenerse en memoria o tener desaparecer inmediatamente, dependiendo de si se almacena el resultado de la evaluación en una variable u objeto.
+En este caso, la expresión es denominada <em>asignación</em>.</p>
+<p><strong>Expresiones lógicas</strong></p>
+<p>Una expresión lógica es un tipo especial de expresión de R que utiliza operadores lógicos de comparación para crearlas, y cuyo valor de retorno es siempre un valor lógico (<code>TRUE</code> o <code>FALSE</code>).
+Ademas, también hace uso de los operadores lógicos <code>&amp;</code> (<em>and</em>), <code>|</code> (<em>or</em>) y <code>!</code> (<em>not</em>):</p>
+<ul>
+<li><code>&amp;</code> (<em>and</em>): se escribe <code>expresion_1 &amp; expresion_2</code>, donde <code>expresion_1</code> y <code>expresion_2</code> son ambas expresiones lógicas. Devuelve <code>TRUE</code> si ambos <code>expresion_1</code> y <code>expresion_2</code> son <code>TRUE</code>, y devuelve <code>FALSE</code>, si una de las dos, o ambas expresiones, son <code>FALSE</code>.</li>
+<li><code>|</code> (<em>or</em>): se escribe <code>expresion_1 | expresion_2</code>, donde <code>expresion_1</code> y <code>expresion_2</code> son ambas expresiones lógicas. Devuelve <code>TRUE</code> si alguna o ambas expresiones son verdaderas, y <code>FALSE</code> si ambas son <code>FALSE</code>.</li>
+<li><code>!</code> (<em>not</em>): se escribe <code>!expresion_1</code> (es un <em>operador unario</em>, a diferencia de los anteriores. unario significa que recibe un solo operando), donde <code>expresion_1</code> es una expresión lógica. Devuelve <code>TRUE</code> si la expresión es <code>FALSE</code>, y devuelve <code>FALSE</code> si la expresión es <code>TRUE</code>.</li>
+</ul>
+<p>Por ejemplo, digamos que tenemos dos vectores numéricos y queremos realizar una acción sobre ellos. Pero antes de realizar cualquier acción, se necesita asegurar que todos los valores sean positivos y que al menos alguno sea mayor a <span class="math inline">\(50\)</span>. Podemos verificar ambas expresiones lógicas como sigue:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="vectores.html#cb55-1" tabindex="-1"></a>my_sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">100</span>, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb55-2"><a href="vectores.html#cb55-2" tabindex="-1"></a><span class="fu">all</span>(my_sample <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">&amp;</span> <span class="fu">any</span>(my_sample <span class="sc">&gt;=</span> <span class="dv">50</span>)</span></code></pre></div>
+<p>También es posible utilizar el operador <code>|</code> en el ejemplo anterior, y el resultado podría variar dependiendo de <code>my_sample</code>.
+En el caso del operador <code>!</code>, se puede usar como sigue:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="vectores.html#cb56-1" tabindex="-1"></a><span class="sc">!</span><span class="fu">all</span>(my_sample <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div>
+<p>Los operadores lógicos indicados evalúan ambas expresiones antes de arrojar un resultado final.
+Existen otro par de operadores lógicos que no necesariamente evalúan ambas expresiones: los operadores <code>&amp;&amp;</code> y <code>||</code>. Estos operadores permiten ahorrar tiempo a la hora de evaluar expresiones lógicas, dado que se puede escapar tempranamente de la expresión si la condición de la izquierda no cumple una condición.</p>
+<p>Un ejemplo que facilita el entendimiento de estos operadores es la división entre cero. Podemos intentar evaluar si <span class="math inline">\(sen(1/x)\)</span> es igual a cero, <code>sin(1 / x) == 0</code>. Pero dado que la división entre cero no esta definida, hay que verificar que <span class="math inline">\(x\)</span> no sea cero, y en caso de serlo, no realizar la evaluación de <code>sin(1 / x) == 0</code>.
+Si se hiciera de la forma usual:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="vectores.html#cb57-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb57-2"><a href="vectores.html#cb57-2" tabindex="-1"></a>(x <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|</span> (<span class="fu">sin</span>(<span class="dv">1</span> <span class="sc">/</span> x) <span class="sc">==</span> <span class="dv">0</span>)</span></code></pre></div>
+<p>el resultado es <code>TRUE</code> ya que el operando de la derecha es <code>NA</code>, por lo que se ignora al evaluar la expresión <code>TRUE | NA</code>.<br />
+Al usar la expresión:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="vectores.html#cb58-1" tabindex="-1"></a>(x <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">||</span> (<span class="fu">sin</span>(<span class="dv">1</span> <span class="sc">/</span> x) <span class="sc">==</span> <span class="dv">0</span>)</span></code></pre></div>
+<p>no arroja ninguna advertencia debido a que ahora, la expresión de la derecha no se evalúa hasta que la expresión de la izquierda no es <code>FALSE</code>.
+La razón de esto, es que cuando se usa el operador <em>or</em>, si la primera expresión es <code>FALSE</code>, todavía hay posibilidad de que toda la expresión <code>expresion_1 || expresion_2</code>, sea <code>TRUE</code>.
+Por lo tanto, la expresión de la derecha solo se evalúa si aun hay oportunidad de que la expresión total sea <code>TRUE</code>.</p>
+<p>El operador <code>&amp;&amp;</code> funciona de forma similar, pero la expresión de la izquierda solo se evalúa si la expresión de la derecha es <code>TRUE</code>, dado que si esto ocurre, aun hay oportunidad de que al expresión completa sea <code>FALSE</code>, si la expresión de la derecha es <code>FALSE</code>.</p>
+<p><strong>Indexado por expresiones lógicas.</strong></p>
+<p>Las expresiones lógicas son muy útiles para indexar vectores basado en el resultado de la expresión.
+El indexado devuelve solo los elementos del vector para los cuales el resultado de la expresión es <code>TRUE</code>. Esto requiere que la longitud del resultado de la expresión lógica sea igual; a la longitud del vector que se busca indexar.
+Por ejemplo, podemos seleccionar los elementos de un vector diferentes de <code>NA</code> usando:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="vectores.html#cb59-1" tabindex="-1"></a>vec_w_NA[<span class="sc">!</span><span class="fu">is.na</span>(vec_w_NA)]</span></code></pre></div>
+<pre><code>## [1]  1 17 25 42 23  8 27 17</code></pre>
+<p>En el análisis estadístico de datos, es sencillo seleccionar aquellos elementos por encima de la media, o mas importante aun, seleccionar datos atípicos de una muestra. Un dato se considera atípico si cae a mas de dos desviaciones estándar de la media. De forma que se pueden seleccionar usando:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="vectores.html#cb61-1" tabindex="-1"></a>my_sample <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">14</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">14</span>, <span class="dv">29</span>, <span class="dv">55</span>)</span>
+<span id="cb61-2"><a href="vectores.html#cb61-2" tabindex="-1"></a>my_sample[(my_sample <span class="sc">-</span> <span class="fu">mean</span>(my_sample)) <span class="sc">/</span> <span class="fu">sd</span>(my_sample) <span class="sc">&gt;</span> <span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] 55</code></pre>
+<p>Los <code>NA</code> causan problemas en el indexado de expresiones logicas, y por tanto afectan el resultado de la evaluacion de expresiones de indexado:</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="vectores.html#cb63-1" tabindex="-1"></a>vec_w_NA[vec_w_NA <span class="sc">&gt;</span> <span class="fu">mean</span>(vec_w_NA, <span class="at">na.rm=</span><span class="cn">TRUE</span>)]</span></code></pre></div>
+<pre><code>## [1] 25 NA 42 23 27 NA</code></pre>
+<p>El resultado, como se espera contiene <code>NA</code>, porque son ignorados en la expresion de indexado. Para evitar esto, es mejor utilizar la funcion <code>subset</code>, la cual permite ignorar los <code>NA</code> en el vector:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="vectores.html#cb65-1" tabindex="-1"></a><span class="fu">subset</span>(vec_w_NA, vec_w_NA <span class="sc">&gt;</span> <span class="fu">mean</span>(vec_w_NA, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## [1] 25 42 23 27</code></pre>
+<p>Otra función de importancia en el indexado por expresiones lógicas es <code>which</code>. Esta recibe una expresión lógica, y devuelve las posiciones en el vector resultante de la expresión lógica en los cuales el resultado es <code>TRUE</code>.
+Por ejemplo:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="vectores.html#cb67-1" tabindex="-1"></a><span class="fu">which</span>(my_sample <span class="sc">&gt;</span> <span class="fu">mean</span>(my_sample))</span></code></pre></div>
+<pre><code>## [1]  5  8 11 12 13</code></pre>
+<p>Como esta devuelve posiciones en el vector donde se cumple una condición, es posible usarlo en para indexar el vector, u otro vector relacionado, usando <code>my_sample[which(my_sample &gt; mean(my_sample))]</code>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="18">
+<li id="fn18"><p>La iteración se hace con unas estructuras de control llamados <em>loops</em> (bucle), como lo son los ciclos <code>for</code> o <code>while</code>. En R, estas estructuras estan disponibles, pero la vectorización no las hace indispensables en muchas aplicaciones.<a href="vectores.html#fnref18" class="footnote-back">↩︎</a></p></li>
+<li id="fn19"><p>A este proceso se le llama tomar una mustra con reemplazo en la teoría de muestras.<a href="vectores.html#fnref19" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="estructuras-de-datos..html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="marices-y-arreglos..html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

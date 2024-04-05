@@ -1,0 +1,37 @@
+title: R para Biologos.
+subtitle: Yet Another Course on R!
+author:
+- name: Marcelo J. Molinatti
+  email: molinatti.marc.029@gmail.com
+date: abril 04, 2024
+toc: true
+toc-depth: 2.0
+toc-title: Índice.
+geometry:
+- left=3cm
+- right=3cm
+- top=2.5cm
+- bottom=2.5cm
+linestretch: 1.5
+secnumdepth: 2.0
+fontsize: 12pt
+colorlinks: true
+lof: false
+lot: false
+natbiboptions:
+- authoryear
+- comma
+bibliography: latex/RCourseRefs.bib
+biblio-style: apalike
+biblio-title: Referencias
+link-citations: true
+nocite: '@*'
+book_filename: R-Biologos
+rmd_files:
+- index.Rmd
+- 01-Basics.Rmd
+- 02-Comunication.Rmd
+- 03-DataStructures.Rmd
+output_dir: docs
+lang: es-ES
+

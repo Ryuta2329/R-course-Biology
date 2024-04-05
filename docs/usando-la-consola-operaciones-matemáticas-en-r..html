@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1.2 Usando la consola: operaciones matemáticas en R. | R-Biologos.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1.2 Usando la consola: operaciones matemáticas en R. | R-Biologos.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1.2 Usando la consola: operaciones matemáticas en R. | R-Biologos.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="el-entorno-de-trabajo..html"/>
+<link rel="next" href="asignación-de-variables..html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="1" data-path="empezando-comandos-básicos..html"><a href="empezando-comandos-básicos..html"><i class="fa fa-check"></i><b>1</b> Empezando: Comandos Básicos.</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="el-entorno-de-trabajo..html"><a href="el-entorno-de-trabajo..html"><i class="fa fa-check"></i><b>1.1</b> El entorno de trabajo.</a></li>
+<li class="chapter" data-level="1.2" data-path="usando-la-consola-operaciones-matemáticas-en-r..html"><a href="usando-la-consola-operaciones-matemáticas-en-r..html"><i class="fa fa-check"></i><b>1.2</b> Usando la consola: operaciones matemáticas en R.</a></li>
+<li class="chapter" data-level="1.3" data-path="asignación-de-variables..html"><a href="asignación-de-variables..html"><i class="fa fa-check"></i><b>1.3</b> Asignación de variables.</a></li>
+<li class="chapter" data-level="1.4" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html"><i class="fa fa-check"></i><b>1.4</b> Tipos de datos y su manejo.</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#datos-numéricos."><i class="fa fa-check"></i><b>1.4.1</b> Datos numéricos.</a></li>
+<li class="chapter" data-level="1.4.2" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#caracteres."><i class="fa fa-check"></i><b>1.4.2</b> Caracteres.</a></li>
+<li class="chapter" data-level="1.4.3" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#valores-lógicos."><i class="fa fa-check"></i><b>1.4.3</b> Valores lógicos.</a></li>
+<li class="chapter" data-level="1.4.4" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#fechas-y-tiempo."><i class="fa fa-check"></i><b>1.4.4</b> Fechas y tiempo.</a></li>
+<li class="chapter" data-level="1.4.5" data-path="tipos-de-datos-y-su-manejo..html"><a href="tipos-de-datos-y-su-manejo..html#otros-valores-especiales."><i class="fa fa-check"></i><b>1.4.5</b> Otros valores especiales.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="organizandote-scripts..html"><a href="organizandote-scripts..html"><i class="fa fa-check"></i><b>1.5</b> Organizandote: <em>Scripts</em>.</a></li>
+<li class="chapter" data-level="1.6" data-path="necesitas-ayuda-r-te-ayuda.html"><a href="necesitas-ayuda-r-te-ayuda.html"><i class="fa fa-check"></i><b>1.6</b> Necesitas ayuda: R te ayuda!</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="comunicando-resultados-y-tomando-notas..html"><a href="comunicando-resultados-y-tomando-notas..html"><i class="fa fa-check"></i><b>2</b> Comunicando Resultados y Tomando notas.</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="instalando-paquetes-en-r..html"><a href="instalando-paquetes-en-r..html"><i class="fa fa-check"></i><b>2.1</b> Instalando paquetes en R.</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="instalando-paquetes-en-r..html"><a href="instalando-paquetes-en-r..html#representación-de-objetos-y-el-uso-de-comillas."><i class="fa fa-check"></i><b>2.1.1</b> Representación de objetos y el uso de comillas.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="investigación-reproducible-r-markdown..html"><a href="investigación-reproducible-r-markdown..html"><i class="fa fa-check"></i><b>2.2</b> Investigación reproducible: R Markdown!.</a></li>
+<li class="chapter" data-level="2.3" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html"><i class="fa fa-check"></i><b>2.3</b> R Markdown: Estructura y Ejecución.</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#instalando-r-markdown."><i class="fa fa-check"></i><b>2.3.1</b> Instalando R Markdown.</a></li>
+<li class="chapter" data-level="2.3.2" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#anatomía-de-un-documento-r-markdown."><i class="fa fa-check"></i><b>2.3.2</b> Anatomía de un documento <em>R Markdown</em>.</a></li>
+<li class="chapter" data-level="2.3.3" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#imágenes-y-tablas."><i class="fa fa-check"></i><b>2.3.3</b> Imágenes y tablas.</a></li>
+<li class="chapter" data-level="2.3.4" data-path="r-markdown-estructura-y-ejecución..html"><a href="r-markdown-estructura-y-ejecución..html#bibliografía-y-referencias."><i class="fa fa-check"></i><b>2.3.4</b> Bibliografía y referencias.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="notas-finales-sobre-la-investigacion-reproducible..html"><a href="notas-finales-sobre-la-investigacion-reproducible..html"><i class="fa fa-check"></i><b>2.4</b> Notas finales sobre la investigacion reproducible.</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="estructuras-de-datos..html"><a href="estructuras-de-datos..html"><i class="fa fa-check"></i><b>3</b> Estructuras de Datos.</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="vectores.html"><a href="vectores.html"><i class="fa fa-check"></i><b>3.1</b> Vectores</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="vectores.html"><a href="vectores.html#operaciones-sobre-vectores."><i class="fa fa-check"></i><b>3.1.1</b> Operaciones sobre vectores.</a></li>
+<li class="chapter" data-level="3.1.2" data-path="vectores.html"><a href="vectores.html#vectorización-y-funciones."><i class="fa fa-check"></i><b>3.1.2</b> Vectorización y funciones.</a></li>
+<li class="chapter" data-level="3.1.3" data-path="vectores.html"><a href="vectores.html#indexado-usando-expresiones-lógicas."><i class="fa fa-check"></i><b>3.1.3</b> Indexado usando expresiones lógicas.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="marices-y-arreglos..html"><a href="marices-y-arreglos..html"><i class="fa fa-check"></i><b>3.2</b> Marices y arreglos.</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="marices-y-arreglos..html"><a href="marices-y-arreglos..html#matrices."><i class="fa fa-check"></i><b>3.2.1</b> Matrices.</a></li>
+<li class="chapter" data-level="3.2.2" data-path="marices-y-arreglos..html"><a href="marices-y-arreglos..html#arreglos."><i class="fa fa-check"></i><b>3.2.2</b> Arreglos.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="factores.html"><a href="factores.html"><i class="fa fa-check"></i><b>3.3</b> Factores</a></li>
+<li class="chapter" data-level="3.4" data-path="tablas-de-datos-data-frames..html"><a href="tablas-de-datos-data-frames..html"><i class="fa fa-check"></i><b>3.4</b> Tablas de Datos (<em>data frames</em>).</a></li>
+<li class="chapter" data-level="3.5" data-path="listas..html"><a href="listas..html"><i class="fa fa-check"></i><b>3.5</b> Listas.</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="usando-la-consola-operaciones-matemáticas-en-r." class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Usando la consola: operaciones matemáticas en R.<a href="usando-la-consola-operaciones-matemáticas-en-r..html#usando-la-consola-operaciones-matemáticas-en-r." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Una vez instalado R, ya puedes empezar a utilizarlo escribiendo comandos y luego presionando la tecla de Retorno (<em>Enter</em>) para ejecutarlos. Un uso básico de R como entorno es como calculadora científica, realizando operaciones matemáticas sencillas:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="usando-la-consola-operaciones-matemáticas-en-r..html#cb2-1" tabindex="-1"></a>    <span class="dv">100</span> <span class="sc">+</span> <span class="dv">32</span>  <span class="co"># Suma </span></span>
+<span id="cb2-2"><a href="usando-la-consola-operaciones-matemáticas-en-r..html#cb2-2" tabindex="-1"></a>    <span class="dv">54</span> <span class="sc">-</span> <span class="dv">85</span>   <span class="co"># Resta </span></span>
+<span id="cb2-3"><a href="usando-la-consola-operaciones-matemáticas-en-r..html#cb2-3" tabindex="-1"></a>    <span class="dv">72</span> <span class="sc">*</span> <span class="dv">8</span>    <span class="co"># Multiplicación </span></span>
+<span id="cb2-4"><a href="usando-la-consola-operaciones-matemáticas-en-r..html#cb2-4" tabindex="-1"></a>    <span class="dv">54</span> <span class="sc">/</span> <span class="dv">3</span>    <span class="co"># División</span></span></code></pre></div>
+<p>Además de estas, existen otras operaciones matemáticas: la exponenciación (p. ej. <code>2 ^ 4</code> o alternativamente <code>2 ** 4</code>. Ambos dan el mismo resultado), el módulo (<code>10 %% 3</code>, devuelve el resto de la operación de división), y la división entera (<code>10 %/% 3</code>, regresa la parte entera del resultado de dividir el operando izquierdo entre el derecho, en este caso, regresa 3). También puedes agrupar las operaciones usando paréntesis para especificar el orden en el que se hacen las operaciones matemáticas. Por ejemplo:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="usando-la-consola-operaciones-matemáticas-en-r..html#cb3-1" tabindex="-1"></a>    <span class="dv">100</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">/</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">1</span>      <span class="co"># 101.6 </span></span>
+<span id="cb3-2"><a href="usando-la-consola-operaciones-matemáticas-en-r..html#cb3-2" tabindex="-1"></a>    (<span class="dv">100</span> <span class="sc">+</span> <span class="dv">3</span>) <span class="sc">/</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">1</span>    <span class="co"># 21.6</span></span>
+<span id="cb3-3"><a href="usando-la-consola-operaciones-matemáticas-en-r..html#cb3-3" tabindex="-1"></a>    <span class="dv">100</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">/</span> (<span class="dv">5</span> <span class="sc">+</span> <span class="dv">1</span>)    <span class="co"># 100.5</span></span>
+<span id="cb3-4"><a href="usando-la-consola-operaciones-matemáticas-en-r..html#cb3-4" tabindex="-1"></a>    (<span class="dv">100</span> <span class="sc">+</span> <span class="dv">3</span>) <span class="sc">/</span> (<span class="dv">5</span> <span class="sc">+</span> <span class="dv">1</span>)  <span class="co"># 17.16667</span></span></code></pre></div>
+<p>En el código anterior, todos los resultados son diferentes porque el orden en el que se evalúan las operaciones es distinto debido a la presencia de los paréntesis. Las operaciones en paréntesis siempre se evalúan primero, seguido se evalúan todas las multiplicaciones y divisiones, y por ultimo las sumas y restas. De igual forma, si hay operaciones de exponenciación, estas se evalúan después de las operaciones en paréntesis y antes de las divisiones y multiplicaciones. Esto es lo que se conoce como precedencia de operaciones.</p>
+<p>Puede ocurrir que al introducir los datos nos falte algún termino o no hayamos cerrado los paréntesis completamente, etc. En esto casos, R mostrara el símbolo de continuación de comando <code>+</code>, en lugar del símbolo usual, <code>&gt;</code>. Esto solo quiere decir que R esta esperando por mas comandos para completar la linea de código. Termina el comando o presiona la tecla <em>Esc</em> para terminar el comando sin que se ejecute.</p>
+<p>También se pueden llevar a cabo el calculo de las funciones usuales como el valor absoluto (p. ej. <code>abs(8)</code>), la exponencial (p. ej. <code>exp(1)</code>), el logaritmo natural (p. ej. <code>log(10)</code>) o el logaritmo en cualquier otra base (p. ej. <code>log(10, 5)</code> arroja el logaritmo en base 5 de 10. Existen funciones logarítmicas en bases usuales como 2 (<code>log2()</code>) o 10 (<code>log10()</code>) debido a que son de uso rutinario en ciertas aplicaciones), la raíz cuadrada (p. ej. <code>sqrt(2)</code>), y funciones trigonométricas (p. ej. <code>cos(pi/4)</code>, <code>sin(pi/4)</code>, y <code>tan(pi/4)</code>. R reconoce a <code>pi</code> como la constante numérica <span class="math inline">\(3.1415926535...\)</span> Las funciones inversas son <code>acos</code>, <code>asin</code> y <code>atan</code>).</p>
+<p>Por omisión, R muestra en los resultados solo 7 cifras significativas. Esto lo puedes cambiar usando <code>options(digits = numero)</code>. Por ejemplo, si quieres que se muestren, digamos, 10 cifras significativas usas <code>options(digits = 10)</code>. También puedes redondear hacia arriba o hacia abajo los resultados de operaciones usando las funciones <code>ceiling</code> y <code>floor</code>, respectivamente.</p>
+<p><strong>Pon en práctica lo que aprendiste.</strong> Escribe en R las siguientes operaciones matemáticas y obtén los resultados:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(1 + \frac{5}{15 + 8}\)</span></li>
+<li><span class="math inline">\(\sqrt{3^2 + 4^2}\)</span></li>
+<li><span class="math inline">\(\frac{10}{10 + \text{e}^{1.5\times20}}\)</span></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="el-entorno-de-trabajo..html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="asignación-de-variables..html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
